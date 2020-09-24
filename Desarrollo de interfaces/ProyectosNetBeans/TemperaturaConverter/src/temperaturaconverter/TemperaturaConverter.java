@@ -31,14 +31,13 @@ public class TemperaturaConverter extends JFrame {
 
         // Assign a black border line.
         textField1.setBorder(BorderFactory.createLineBorder(Color.black));
-
         Kelvin = new JLabel("Grados Kelvin");
 
         textField2 = new JTextField(20);
 
         textField2.addActionListener(new KelvinToCelsius());
 
-        textField2.setBorder(BorderFactory.createLineBorder(Color.blue));
+        textField2.setBorder(BorderFactory.createLineBorder(Color.black));
 
         JButton button = new JButton("Clear");
 
@@ -64,6 +63,9 @@ public class TemperaturaConverter extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // get the text typed in textfield1
             // and assign it to the other textfield.
+            textField2.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+            textField1.setBorder(BorderFactory.createLineBorder(Color.blue));
+
             String text = textField1.getText();
             double GCel;
             GCel = Double.parseDouble(text);
@@ -78,6 +80,9 @@ public class TemperaturaConverter extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // get the text typed in textfield1
             // and assign it to the other textfield.
+            textField1.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+            textField2.setBorder(BorderFactory.createLineBorder(Color.blue));
+
             String text = textField2.getText();
             double GCel;
             GCel = Double.parseDouble(text);
@@ -92,6 +97,9 @@ public class TemperaturaConverter extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             // clean the textfields.
+            textField1.setBorder(BorderFactory.createLineBorder(Color.black));
+            textField2.setBorder(BorderFactory.createLineBorder(Color.black));
+
             textField1.setText("");
             textField1.requestFocus(); // Give focus to textfield1
             textField2.setText("");
