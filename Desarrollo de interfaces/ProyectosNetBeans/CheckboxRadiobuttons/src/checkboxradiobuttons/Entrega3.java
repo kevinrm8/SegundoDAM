@@ -40,8 +40,11 @@ public class Entrega3 extends JFrame {
         add(FemaleJRadioButton); // agrega botón bold a JFrame
 
         //PRUEBA TEXTO SALIDA
+       // MuestraSexo = new JLabel();
+        
         MaleJRadioButton.addItemListener(new ManejadorOpciones("Male"));
         FemaleJRadioButton.addItemListener(new ManejadorOpciones("Female"));
+       
         
         PreguntaHijos = new JLabel("Do you have Daughters, Sons o None?");
         add(PreguntaHijos);
@@ -59,15 +62,17 @@ public class Entrega3 extends JFrame {
         optionsGroup.add(FemaleJRadioButton);
     } // fin del constructor de FrameOptionButton
 
-    private class ManejadorOpciones implements ItemListener {
+   private class ManejadorOpciones implements ItemListener {
+        
         private String Texto;
         
         public ManejadorOpciones(String f){
         Texto = f;
+        MuestraSexo = new JLabel("You are a "+ Texto);
         }
         @Override
         public void itemStateChanged(ItemEvent ie) {
-            
+            add(MuestraSexo);
         }
     }
 
