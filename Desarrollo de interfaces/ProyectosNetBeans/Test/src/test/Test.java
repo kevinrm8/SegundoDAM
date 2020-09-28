@@ -3,28 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package checkboxradiobuttons;
+package test;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/**
- *
- * @author kevmar
- */
-public class Entrega3 extends JFrame {
+public class Test extends JFrame {
 
-   private JLabel PreguntaSexo, PreguntaHijos; // se utiliza para mostrar los cambios en el tipo de letra
-    private ButtonGroup optionsGroup, optionsGroup2; // grupo de botones que contiene los botones de opción
+    private JLabel PreguntaSexo, PreguntaHijos; // se utiliza para mostrar los cambios en el tipo de letra
+    private ButtonGroup optionsGroup; // grupo de botones que contiene los botones de opción
 
     private JRadioButton MaleJRadioButton, FemaleJRadioButton;
     private JCheckBox DaugthersJCheckBox, SonsJCheckBox, NoneJCheckBox;
-
-    public Entrega3() {
+    
+    public Test() {
         setTitle("Proving RadioButton");
-        setLayout(new FlowLayout()); // establece el esquema del marco
-        setSize(400, 300);
+        setSize(500, 300);
 
         PreguntaSexo = new JLabel("Select Male or Female");
         add(PreguntaSexo); // agrega fieldText a JFrame
@@ -52,8 +47,8 @@ public class Entrega3 extends JFrame {
         // crea una relación lógica entre los objetos JRadioButton
         optionsGroup = new ButtonGroup(); // crea ButtonGroup
         optionsGroup.add(MaleJRadioButton);
-        optionsGroup.add(FemaleJRadioButton); 
+        optionsGroup.add(FemaleJRadioButton);      
+        
     } // fin del constructor de FrameOptionButton
-
 
 }
