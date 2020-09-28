@@ -1,0 +1,44 @@
+Código para diferenciar las Tostadas y los diálogos
+
+1.- Tostadas:
+protected void showToast(CharSequence text) {
+    Context context = getApplicationContext();
+    //CharSequence text = getResources().getString(R.string.noNameMsg);
+    int duration = Toast.LENGTH_SHORT;
+    Toast toast = Toast.makeText(context, text, duration);
+    toast.show();
+}
+
+Version reducida: 
+Toast.makeText(this, "el texto", Toast.LENGTH_SHORT).show();
+
+2.- Diálogos:
+protected void showAlert( CharSequence text) {
+    //CharSequence text = getResources().getString(R.string.noNameMsg);
+    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+    alert.setMessage(text);
+    alert.setPositiveButton(android.R.string.ok, null);
+    alert.show();
+}
+Version Reducida:
+new AlertDialog.Builder(this).setMessage(“el texto”).setPositiveButton(android.R.string.ok, null).show();
+
+
+*******************CREAR UN FICHERO DE FONDO PARA UNA ACTIVIDAD ******************
+
+Color de Fondo dependiente de un fichero degradado.xml
+<LinearLayout........
+...........
+android:backgroud=""@drawable/degradado" />
+
+
+El fichero degradado.xml se crea en el directorio drawable
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#FFFFFF"
+        android:endColor="#0022AA"
+        android:angle="225" />
+</shape>
+
+
