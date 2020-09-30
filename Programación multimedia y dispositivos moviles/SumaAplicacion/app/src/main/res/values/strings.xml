@@ -4,5 +4,6 @@
     <string name="Numero2">Numero</string>
     <string name="Sumar">Sumar</string>
     <string name="Resultado"></string>
+    <string name="Volver">Volver</string>
 
 </resources>

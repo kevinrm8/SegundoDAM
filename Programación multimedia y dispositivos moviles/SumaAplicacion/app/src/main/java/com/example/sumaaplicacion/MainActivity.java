@@ -58,41 +58,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int cod_resp, int cod_result,Intent intent) {
-      /*  if (cod_result== RESULT_OK) {
-            Bundle otroBundle = intent.getExtras();
-            elSaludo.setText(otroBundle.getString("DEVUELTO"));
-        } */
         super.onActivityResult(cod_resp, cod_result, intent);
     }
     /* Proceso para entender el ciclo de vida */
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this,"onStart-ClasePrincipal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"onStart-Main", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this,"onResume-ClasePrincipal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"onResume-Main", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onPause() {
-        Toast.makeText(this, "onPause-ClasePrincipal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onPause-Main", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
     @Override
     protected void onStop() {
         super.onStop();
-        Toast.makeText(this,"onStop-ClasePrincipal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"onStop-Main", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onRestart() {
         super.onRestart();
-        Toast.makeText(this,"onRestart-ClasePrincipal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"onRestart-Main", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onDestroy() {
-        Toast.makeText(this,"onDestroy-ClasePrincipaly", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"onDestroy-Main", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 }
