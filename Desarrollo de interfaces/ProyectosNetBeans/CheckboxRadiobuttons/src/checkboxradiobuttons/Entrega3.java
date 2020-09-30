@@ -16,10 +16,10 @@ import javax.swing.*;
 public class Entrega3 extends JFrame {
 
     private JLabel PreguntaSexo, PreguntaHijos; // se utiliza para mostrar los cambios en el tipo de letra
-    private ButtonGroup optionsGroup, optionsGroup2; // grupo de botones que contiene los botones de opción
+    private ButtonGroup optionsGroup; // grupo de botones que contiene los botones de opción
 
     private JRadioButton MaleJRadioButton, FemaleJRadioButton;
-    private JCheckBox DaugthersJCheckBox, SonsJCheckBox, NoneJCheckBox;
+    private JCheckBox DaugthersJCheckBox, SonsJCheckBox;
 
     private JLabel MuestraSexo= new JLabel(), Muestrahijos = new JLabel();
 
