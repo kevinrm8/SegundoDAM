@@ -21,12 +21,12 @@ public class Entrega3 extends JFrame {
     private JRadioButton MaleJRadioButton, FemaleJRadioButton;
     private JCheckBox DaugthersJCheckBox, SonsJCheckBox, NoneJCheckBox;
 
-    private JLabel MuestraSexo, Muestrahijos;
+    private JLabel MuestraSexo= new JLabel(), Muestrahijos = new JLabel();
 
     public Entrega3() {
         setTitle("Proving RadioButton");
         setLayout(new FlowLayout()); // establece el esquema del marco
-        setSize(500, 300);
+        setBounds(500, 500,400,400);
 
         PreguntaSexo = new JLabel("Select Male or Female");
         add(PreguntaSexo); // agrega fieldText a JFrame
@@ -38,15 +38,9 @@ public class Entrega3 extends JFrame {
         // Añade los botones al Layout
         add(MaleJRadioButton); // agrega botón simple a JFrame
         add(FemaleJRadioButton); // agrega botón bold a JFrame
-
-        //PRUEBA TEXTO SALIDA
-       // MuestraSexo = new JLabel();
-        
-        MaleJRadioButton.addItemListener(new ManejadorOpciones("Male"));
-        FemaleJRadioButton.addItemListener(new ManejadorOpciones("Female"));
        
         
-        PreguntaHijos = new JLabel("Do you have Daughters, Sons o None?");
+        PreguntaHijos = new JLabel("Do you have Daughters, Sons?");
         add(PreguntaHijos);
 
         // crea los botones de opcion
@@ -55,6 +49,13 @@ public class Entrega3 extends JFrame {
         // Añade los botones al Layout
         add(DaugthersJCheckBox);
         add(SonsJCheckBox);
+        add(MuestraSexo);
+        add(Muestrahijos);
+        
+        MaleJRadioButton.addItemListener(new ManejadorOpciones());
+        FemaleJRadioButton.addItemListener(new ManejadorOpciones());
+        DaugthersJCheckBox.addItemListener(new ManejadorOpciones());
+        SonsJCheckBox.addItemListener(new ManejadorOpciones());
 
         // crea una relación lógica entre los objetos JRadioButton
         optionsGroup = new ButtonGroup(); // crea ButtonGroup
@@ -64,15 +65,28 @@ public class Entrega3 extends JFrame {
 
    private class ManejadorOpciones implements ItemListener {
         
-        private String Texto;
         
-        public ManejadorOpciones(String f){
-        Texto = f;
-        MuestraSexo = new JLabel("You are a "+ Texto);
+        public ManejadorOpciones(){
+
         }
         @Override
         public void itemStateChanged(ItemEvent ie) {
-            add(MuestraSexo);
+            if(MaleJRadioButton.isSelected()){
+            MuestraSexo.setText("You are a Male");
+            }
+            if(FemaleJRadioButton.isSelected()){
+            MuestraSexo.setText("You are a Female");}
+            
+            if(DaugthersJCheckBox.isSelected() & SonsJCheckBox.isSelected()){
+            Muestrahijos.setText("and You have Daughters and Sons.");
+            }
+            if(DaugthersJCheckBox.isSelected() & !SonsJCheckBox.isSelected()){
+            Muestrahijos.setText("and You have Daughters.");}
+            if(SonsJCheckBox.isSelected() & !DaugthersJCheckBox.isSelected()){
+            Muestrahijos.setText("and You have Sons.");}
+               if(!DaugthersJCheckBox.isSelected() & !SonsJCheckBox.isSelected()){
+            Muestrahijos.setText("");
+            }
         }
     }
 
