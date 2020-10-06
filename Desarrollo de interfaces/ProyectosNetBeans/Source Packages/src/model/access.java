@@ -19,7 +19,7 @@ public class access {
             oos.close();
 
         } catch (IOException ex) {
-            System.out.println("Failed to open file");
+            System.out.println("Failed to open file S");
         }
     }
 
@@ -32,7 +32,7 @@ public class access {
             ls = (listShow) ois.readObject();
             ois.close();
         } catch (IOException io) {
-            System.out.println("Failed to open file");
+            System.out.println("Failed to open file L");
         } finally {
             return ls;
 

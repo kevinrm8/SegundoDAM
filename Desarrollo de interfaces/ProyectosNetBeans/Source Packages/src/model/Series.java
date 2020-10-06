@@ -6,15 +6,15 @@
 package model;
 import model.listShow;
 import model.show;
-//import view.frame;
+import view.frame;
 
 public class Series {
    public static void main(String[] args){
        
-       /*
+       
        frame f = new frame();
        f.setVisible(true);
-       */
+       
        
        //create an instance of one serie:
        show sh = new show("Breaking Bad","Vicent Guilligan",5,"Drama",5);
