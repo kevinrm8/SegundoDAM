@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package accesodatosproyectos;
 
 import java.util.*;
 
 public class AccesoDatosProyectos {
 //PRIMEROS EJERCICIOS DIA 22/10/2020
-    //Documento de repaso
+    //Kevin Rosales         2ºDAM
 
     public static void main(String[] args) {
 
-        //Llamar al ejercicio 
-        // Ejercicio1();
+        //Llamar al ejercicio Para probar algun ejercicio descomentar
+        
+        // Ejercicio1(); 
         // Ejercicio2();
         // Ejercicio3();
         //Ejercicio4();

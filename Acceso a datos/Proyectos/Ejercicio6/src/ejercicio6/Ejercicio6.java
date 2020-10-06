@@ -3,13 +3,8 @@ package ejercicio6;
 import java.util.*;
 
 public class Ejercicio6 {
-
-    /*6. Creeu un programa anomenat venedors que creï
-    una matriu de 18 X 10 que indiqui que som propietaris d'una empresa de 
-    18 proveïdors cadascun dels quals ven 10 productes.
-    La matriu emmagatzema els ingressos obtinguts per cada venedor en cada producte,
-    de manera que un menú li permet emmagatzemar els ingressos, revisar el total 
-    de cada venedor i obtenir els ingressos totals.  */
+// EJERCICIO 6 
+    // KEVIN ROSALES    2ºDAM
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
 
@@ -26,7 +21,7 @@ public class Ejercicio6 {
         matriz = new int[fila][columna];
 
         RellenarMatriz(matriz, fila, columna);
-        VerMatriz(matriz, fila, columna); //PROBAR LA MATRIZ Y VERLA POR PANALLA
+        //VerMatriz(matriz, fila, columna); //PROBAR LA MATRIZ Y VERLA POR PANALLA
 
         do {
 
