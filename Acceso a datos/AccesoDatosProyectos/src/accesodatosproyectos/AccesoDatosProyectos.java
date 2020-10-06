@@ -5,7 +5,7 @@
  */
 package accesodatosproyectos;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class AccesoDatosProyectos {
 //PRIMEROS EJERCICIOS DIA 22/10/2020
@@ -13,10 +13,12 @@ public class AccesoDatosProyectos {
 
     public static void main(String[] args) {
 
-       // Ejercicio1();
-       // Ejercicio2();
-       // Ejercicio3();
-       // Ejercicio4();
+        //Llamar al ejercicio 
+        // Ejercicio1();
+        // Ejercicio2();
+        // Ejercicio3();
+        //Ejercicio4();
+        //Ejercicio5();
     }
 
     public static void Ejercicio1() {
@@ -113,6 +115,28 @@ public class AccesoDatosProyectos {
             }
             System.out.println();
 
+        }
+
+    }
+
+    public static void Ejercicio5() {
+
+        int[][] Vect = new int[5][3]; // Creo la matriz
+
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
+                int n = random.nextInt(90); // Numero random entre 1-90
+                Vect[i][j] = n;
+                if (j != 2) {
+                    System.out.print(Vect[i][j] + " - ");
+                } else {
+                    System.out.print(Vect[i][j]);
+                }
+
+            }
+            System.out.println();
         }
 
     }
