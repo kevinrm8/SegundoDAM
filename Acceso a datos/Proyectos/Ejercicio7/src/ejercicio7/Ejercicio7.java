@@ -37,6 +37,7 @@ public class Ejercicio7 {
                     CambiarNota(ListaAlumnos);
                     break;
                 case 6:
+                    MostrarPorNotas(ListaAlumnos);
                     break;
                 case 7:
                     System.out.println("Adios!");
@@ -73,10 +74,10 @@ public class Ejercicio7 {
         pos = scanner.nextInt();
         scanner.nextLine();
 
-        if (pos-1 > ListaAlumnos.size() || pos < 0) {
+        if (pos - 1 > ListaAlumnos.size() || pos < 0) {
             System.out.println("Alumno no encontrado");
         } else {
-            ListaAlumnos.remove(pos-1);
+            ListaAlumnos.remove(pos - 1);
 
         }
 
@@ -133,11 +134,57 @@ public class Ejercicio7 {
         if (pos > ListaAlumnos.size() || pos < 0) {
             System.out.println("Alumno no encontrado");
         } else {
-            System.out.println("Nota nueva del alumno "+ListaAlumnos.get(pos-1).getNombre()+":");
+            System.out.println("Nota nueva del alumno " + ListaAlumnos.get(pos - 1).getNombre() + ":");
             nota = scanner.nextInt();
-            
-            ListaAlumnos.get(pos-1).setNotaNumero(nota);
+
+            ListaAlumnos.get(pos - 1).setNotaNumero(nota);
         }
     }
 
+    private static void MostrarPorNotas(ArrayList<Estudiante> ListaAlumnos) {
+        Estudiante aux;
+        String NoPresentado = null, Suspendido = null, Approved = null, Notable = null, Outstanding = null, Honors = null;
+        int NoPre = 0, Susp = 0, App = 0, Not = 0, Outs = 0, Hon = 0, Totales = 0;
+        Iterator iter = ListaAlumnos.iterator();
+        Totales = ListaAlumnos.size();
+
+        while (iter.hasNext()) {
+            aux = (Estudiante) iter.next();
+            if (aux.getNotaLetra() == "NotPresent") {
+                NoPresentado = aux.getNombre() + " ";
+                NoPre++;
+            }
+            if (aux.getNotaLetra() == "Suspendido") {
+                Suspendido = aux.getNombre();
+                Susp++;
+            }
+            if (aux.getNotaLetra() == "Approved") {
+                Approved = aux.getNombre();
+                App++;
+            }
+            if (aux.getNotaLetra() == "Notable") {
+                Notable = aux.getNombre();
+                Not++;
+            }
+            if (aux.getNotaLetra() == "Outstanding") {
+                Outstanding = aux.getNombre();
+                Outs++;
+            }
+            if (aux.getNotaLetra() == "Honors") {
+                Honors = aux.getNombre();
+                Hon++;
+            }
+
+        }
+        System.out.println("NO PRESENTADOS\n" + NoPresentado);
+        System.out.println("SUSPENDIDO\n" + Suspendido);
+        System.out.println("APPROVED\n" + Approved);
+        System.out.println("NOTABLE\n" + Notable);
+        System.out.println("OUTSTANDING\n" + Outstanding);
+        System.out.println("HONORS\n" + Honors);
+        
+        float porc = 1/3;//((Totales-NoPre)/Totales)*100; // NOSE PORQUE SE QUEDA EN 0 el porcentaje
+        System.out.println("Porcentaje de presentados "+porc);
+
+    }
 }
