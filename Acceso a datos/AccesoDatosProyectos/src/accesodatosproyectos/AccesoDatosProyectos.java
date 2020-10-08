@@ -1,4 +1,3 @@
-
 package accesodatosproyectos;
 
 import java.util.*;
@@ -10,12 +9,11 @@ public class AccesoDatosProyectos {
     public static void main(String[] args) {
 
         //Llamar al ejercicio Para probar algun ejercicio descomentar
-        
         // Ejercicio1(); 
         // Ejercicio2();
         // Ejercicio3();
-        //Ejercicio4();
-        //Ejercicio5();
+         //Ejercicio4();
+        Ejercicio5();
     }
 
     public static void Ejercicio1() {
@@ -103,11 +101,11 @@ public class AccesoDatosProyectos {
         for (int i = 1; i <= numero; i++) {
             System.out.print(i + " ");
 
-            if (i * 2 < numero) {
+            if (i * 2 <= numero) {
                 System.out.print(i * 2 + " ");
             }
 
-            if (i * 3 < numero) {
+            if (i * 3 <= numero) {
                 System.out.print(i * 3 + " ");
             }
             System.out.println();
@@ -124,7 +122,7 @@ public class AccesoDatosProyectos {
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
-                int n = random.nextInt(90); // Numero random entre 1-90
+                int n = random.nextInt(90)+1; // Numero random entre 1-90
                 Vect[i][j] = n;
                 if (j != 2) {
                     System.out.print(Vect[i][j] + " - ");

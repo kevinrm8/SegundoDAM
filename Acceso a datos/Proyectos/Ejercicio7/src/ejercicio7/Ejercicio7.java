@@ -155,23 +155,23 @@ public class Ejercicio7 {
                 NoPre++;
             }
             if (aux.getNotaLetra() == "Suspendido") {
-                Suspendido = aux.getNombre();
+                Suspendido = aux.getNombre()+ " ";
                 Susp++;
             }
             if (aux.getNotaLetra() == "Approved") {
-                Approved = aux.getNombre();
+                Approved = aux.getNombre()+ " ";
                 App++;
             }
             if (aux.getNotaLetra() == "Notable") {
-                Notable = aux.getNombre();
+                Notable = aux.getNombre()+ " ";
                 Not++;
             }
             if (aux.getNotaLetra() == "Outstanding") {
-                Outstanding = aux.getNombre();
+                Outstanding = aux.getNombre()+ " ";
                 Outs++;
             }
             if (aux.getNotaLetra() == "Honors") {
-                Honors = aux.getNombre();
+                Honors = aux.getNombre()+ " ";
                 Hon++;
             }
 
