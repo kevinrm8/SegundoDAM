@@ -19,6 +19,7 @@ public class access {
             oos.close();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println("Failed to open file S");
         }
     }

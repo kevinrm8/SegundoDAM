@@ -8,7 +8,7 @@ package model;
 import java.io.*;
 import java.util.*;
 
-public class listShow {
+public class listShow implements Serializable{
 
     private ArrayList<show> seriesList;
 
