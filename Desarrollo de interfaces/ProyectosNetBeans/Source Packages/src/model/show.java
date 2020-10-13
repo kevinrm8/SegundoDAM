@@ -7,28 +7,31 @@ package model;
 
 import java.io.*;
 
-public class show implements Serializable{
-    
+public class show implements Serializable {
+
     private String title;
     private String scriptwriter;
     private int seasons;
     private String genre;
     private int views;
-    
-    public show(){
-     this.title = "";
+    private String plataforma;
+
+    public show() {
+        this.title = "";
         this.scriptwriter = "";
         this.seasons = 0;
         this.genre = "";
         this.views = 0;
+        this.plataforma = "";
     }
 
-    public show(String title, String scriptwriter, int seasons, String genre, int views) {
+    public show(String title, String scriptwriter, int seasons, String genre, int views, String plataforma) {
         this.title = title;
         this.scriptwriter = scriptwriter;
         this.seasons = seasons;
         this.genre = genre;
         this.views = views;
+        this.plataforma = plataforma;
     }
 
     public String getTitle() {
@@ -70,5 +73,12 @@ public class show implements Serializable{
     public void setViews(int views) {
         this.views = views;
     }
-    
+
+    public String getPlataforma() {
+        return plataforma;
+    }
+
+    public void setPlataforma(String plataforma) {
+        this.plataforma = plataforma;
+    }
 }

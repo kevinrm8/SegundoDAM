@@ -16,9 +16,8 @@ public class Series {
 
 
         //create an instance of one serie:
-        show sh = new show("Breaking Bad", "Vicent Guilligan", 5, "Drama", 5);
-
-        show sh1 = new show("JGame of thrones", "David Benioff", 6, "1", 6);
+        show sh = new show("Breaking Bad", "Vicent Guilligan", 5, "Drama", 5,"Netflix");
+        show sh1 = new show("Game of thrones", "David Benioff", 6, "1", 6,"HBO");
 
         listShow ls = new listShow();
 
@@ -30,10 +29,6 @@ public class Series {
         System.out.println("save series");
         controller control = new controller();
 
-        /* MOSTRAR POR PANTALLA PARA PROBAR
-        show sh2 = new show();
-        sh2 = ls.getShow(1);
-        System.out.println(sh2.getTitle()); */
 
         frame f = new frame(control);
         f.setVisible(true);

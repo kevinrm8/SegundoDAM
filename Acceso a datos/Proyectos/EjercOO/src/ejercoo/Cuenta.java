@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ejercoo;
+import java.util.*;
 
 public class Cuenta {
 

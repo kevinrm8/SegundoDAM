@@ -6,36 +6,42 @@
 package ejercoo;
 
 import java.util.*;
-import java.awt.*;
 
-/**
- *
- * @author kevmar
- */
+
 public class EjercOO {
 
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        String nombre;
-        double cantidad,ret;
-        boolean aux;
+        //PARTE DE CREAR CUENTA INGRESOS Y RETIRADAS
+        String nombre, opcionIngreso;
+        double cantidad = 0, ret;
 
         Cuenta nCuenta;
 
         System.out.println("Nombre de la cuenta:");
         nombre = scanner.nextLine();
 
-        System.out.println("Cantidad a ingresar en tu nueva cuenta?");
-        cantidad = scanner.nextDouble();
+        System.out.println("Desea realizar un ingreso (Si o No)");
+        opcionIngreso = scanner.nextLine();
 
-        nCuenta = new Cuenta();
-        nCuenta.ingresar(cantidad);     
+        if (opcionIngreso.equals("Si")) {
+            System.out.println("Cantidad a ingresar en la cuenta?");
+            cantidad = scanner.nextDouble();
+        }
+        //Creo la cuenta e ingreso la cantidad pasada por teclado
+        nCuenta = new Cuenta(nombre);
+        nCuenta.ingresar(cantidad);
+
+        //Pido cantidad a retirar
         System.out.println("Cantidad a retirar");
         ret = scanner.nextDouble();
+
         nCuenta.Retirar(ret);
         System.out.println(nCuenta.toString());
+
     }
+
 
 }
