@@ -40,7 +40,7 @@ public class Password {
     private String GenerarContrasena() {
 
         String pass = "";
-        String juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE0123456789abcdefghijklmnñopqrstuvwxyz";
+        String juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE0123456789"+"TRWAGMYFPDXBNJZSQVHLCKE".toLowerCase();
         char letra;
         int r;
         //Para poner los numeros
