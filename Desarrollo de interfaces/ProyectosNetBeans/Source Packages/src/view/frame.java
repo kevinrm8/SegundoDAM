@@ -17,9 +17,8 @@ public class frame extends JFrame {
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
-    
-   // private JPanel panel4 = new JPanel();
 
+    // private JPanel panel4 = new JPanel();
     private JButton b1, b2, b3, b4, b5, b6, b7;
     private JLabel e1, e2, e3, e4, e5, e6, e7;
     private JTextField t1, t2, t3, t4, t5, t6, t7 = new JTextField();
@@ -112,6 +111,11 @@ public class frame extends JFrame {
         b6.addActionListener(bl);
         b7.addActionListener(bl);
 
+        //Precargar primero
+        show s = new show();
+        s = c.first();
+        updating(s);
+
         //Guardar seleccion del combom
         combo.addItemListener((ItemListener) new ManejarOpciones());
     }
@@ -200,9 +204,66 @@ public class frame extends JFrame {
 //                Object[] options = {"SI", "NO"};
 //                int n = JOptionPane.showOptionDialog(panel4, "Estas seguro?", "CONFIRMACION", JOptionPane.YES_NO_CANCEL_OPTION,
 //                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-            }
-            if(e.getSource()==b7){
                
+               // c.eliminarC();
+                
+            }
+            //Para modificar
+            if (e.getSource() == b7) {
+
+                if (b7.getText().equals("*")) {
+                    s = c.getShow();
+
+                    t1.setEditable(true);
+                    t2.setEditable(true);
+                    t3.setEditable(true);
+                    t4.setEditable(true);
+                    t5.setEditable(true);
+                    t6.setEditable(true);
+
+                    b1.setEnabled(false);
+                    b2.setEnabled(false);
+                    b3.setEnabled(false);
+                    b4.setEnabled(false);
+                    b5.setEnabled(false);
+                    b6.setEnabled(false);
+
+                    //No muestro la paltaforma
+                    e6.setVisible(false);
+                    t6.setVisible(false);
+                    //Muestro la seleccion de paltaforma
+                    e7.setVisible(true);
+                    combo.setVisible(true);
+                    //Preseleccionar la primera opcion
+                    t6.setText(combo.getSelectedItem().toString());
+
+                    b7.setText("***");
+                } else {
+
+                    t1.setEditable(false);
+                    t2.setEditable(false);
+                    t3.setEditable(false);
+                    t4.setEditable(false);
+                    t5.setEditable(false);
+                    t6.setEditable(false);
+
+                    b1.setEnabled(true);
+                    b2.setEnabled(true);
+                    b3.setEnabled(true);
+                    b4.setEnabled(true);
+                    b5.setEnabled(true);
+                    b6.setEnabled(true);
+
+                    //Vuelvo a mostrar la paltaforma
+                    e6.setVisible(true);
+                    t6.setVisible(true);
+                    //Escondo la seleccion de plataforma
+                    e7.setVisible(false);
+                    combo.setVisible(false);
+
+                    b7.setText("*");
+                    s = c.guardar(fillShow());
+                }
             }
 
             updating(s);

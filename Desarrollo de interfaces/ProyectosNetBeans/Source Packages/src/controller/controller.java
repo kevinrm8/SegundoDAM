@@ -53,4 +53,29 @@ public class controller {
         position = ls.longitud() - 1;
         return ls.getShow(position);
     }
+
+    public show getShow() {
+        return  ls.getShow(position);
+    }
+    public void eliminarC(){
+        ls.eliminar(position);
+        position--;
+        acc.saveLS(ls);
+    }
+    
+
+
+    public show guardar(show s) {
+    ls.getShow(position).setGenre(s.getGenre());
+    ls.getShow(position).setPlataforma(s.getPlataforma());
+    ls.getShow(position).setScriptwriter(s.getScriptwriter());
+    ls.getShow(position).setSeasons(s.getSeasons());
+    ls.getShow(position).setTitle(s.getTitle());
+    ls.getShow(position).setViews(s.getViews());
+
+        return s;
+    }
+
+
+   
 }
