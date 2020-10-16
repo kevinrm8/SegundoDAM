@@ -16,21 +16,20 @@ public class Series {
 
 
         //create an instance of one serie:
-        show sh = new show("Breaking Bad", "Vicent Guilligan", 5, "Drama", 5,"Netflix");
+//        show sh = new show("Breaking Bad", "Vicent Guilligan", 5, "Drama", 5,"Netflix");
 //        show sh1 = new show("Game of thrones", "David Benioff", 6, "1", 6,"HBO");
 //
-        listShow ls = new listShow();
+//        listShow ls = new listShow();
 //
-        ls.setShow(sh);
+//        ls.setShow(sh);
 //        ls.setShow(sh1);
 //
 //        access.saveLS(ls);
-//
+
 //        System.out.println("save series");
 
 
         controller control = new controller();
-
 
         frame f = new frame(control);
         f.setVisible(true);

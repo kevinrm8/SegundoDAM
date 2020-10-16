@@ -24,7 +24,7 @@ public class frame extends JFrame {
     private JTextField t1, t2, t3, t4, t5, t6, t7 = new JTextField();
 
     private JComboBox combo;
-    private final String plataformas[] = {"HBO", "NETFLIX", "DISNEY+", "AMAZON PRIME"};
+    private final String plataformas[] = {"NINGUNA","HBO", "NETFLIX", "DISNEY+", "AMAZON PRIME"};
 
     private controller c = null;
 
@@ -111,11 +111,19 @@ public class frame extends JFrame {
         b6.addActionListener(bl);
         b7.addActionListener(bl);
 
-        //Precargar primero
-        show s = new show();
-        s = c.first();
-        updating(s);
-
+        if (c.tamano() <= 0) {
+            b1.setEnabled(false);
+            b2.setEnabled(false);
+            b3.setEnabled(false);
+            b4.setEnabled(false);
+            b6.setEnabled(false);
+            b7.setEnabled(false);
+        } else {
+            //Precargar primero
+            show s;
+            s = c.first();
+            updating(s);
+        }
         //Guardar seleccion del combom
         combo.addItemListener((ItemListener) new ManejarOpciones());
     }
@@ -168,7 +176,7 @@ public class frame extends JFrame {
                     e7.setVisible(true);
                     combo.setVisible(true);
                     //Preseleccionar la primera opcion
-                    t6.setText(combo.getSelectedItem().toString());
+                    //t6.setText(combo.getSelectedItem().toString());
 
                 } else {
                     //Habilitar botones
@@ -200,13 +208,16 @@ public class frame extends JFrame {
                 }
             }
             if (e.getSource() == b6) {
-                // Para hacer poppup     JOptionPane.OK_CANCEL_OPTION --- JOptionPane.showConfirmDialog(rootPane, s)
-//                Object[] options = {"SI", "NO"};
-//                int n = JOptionPane.showOptionDialog(panel4, "Estas seguro?", "CONFIRMACION", JOptionPane.YES_NO_CANCEL_OPTION,
-//                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-               
-               // c.eliminarC();
-                
+
+                c.eliminarC();
+                if (c.tamano() <= 0) {
+                    b1.setEnabled(false);
+                    b2.setEnabled(false);
+                    b3.setEnabled(false);
+                    b4.setEnabled(false);
+                    b6.setEnabled(false);
+                    b7.setEnabled(false);
+                }
             }
             //Para modificar
             if (e.getSource() == b7) {
@@ -236,7 +247,6 @@ public class frame extends JFrame {
                     combo.setVisible(true);
                     //Preseleccionar la primera opcion
                     t6.setText(combo.getSelectedItem().toString());
-
                     b7.setText("***");
                 } else {
 

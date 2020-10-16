@@ -62,6 +62,11 @@ public class controller {
         position--;
         acc.saveLS(ls);
     }
+    public int tamano(){
+        int tam =0;
+        tam = ls.longitud();
+        return tam;
+    }
     
 
 
@@ -72,7 +77,7 @@ public class controller {
     ls.getShow(position).setSeasons(s.getSeasons());
     ls.getShow(position).setTitle(s.getTitle());
     ls.getShow(position).setViews(s.getViews());
-
+    acc.saveLS(ls);
         return s;
     }
 
