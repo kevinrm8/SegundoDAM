@@ -68,8 +68,9 @@ public class Electrodomestico {
     }
 
     public double precioFinal() {
-        double precio = 0;
-
+        double precio=precioBase; // Añado el precio base
+            
+        //Sumo al precio base segun consumo
         if (consumoEnergito == 'A') {
             precio += 100;
         } else {
@@ -92,7 +93,23 @@ public class Electrodomestico {
                 }
             }
         }
-
+        // Despues sumo segun el peso al precio
+        if (peso < 20) {
+            precio += 10;
+        } else {
+            if (peso >= 20 && peso < 50) {
+                precio += 50;
+            } else {
+                if (peso <= 50 && peso < 80) {
+                    precio += 80;
+                } else {
+                    if (peso >= 80) {
+                        precio += 100;
+                    }
+                }
+            }
+        }
+        
         return precio;
     }
 
