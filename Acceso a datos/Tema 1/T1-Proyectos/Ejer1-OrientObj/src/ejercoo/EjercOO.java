@@ -7,7 +7,6 @@ package ejercoo;
 
 import java.util.*;
 
-
 public class EjercOO {
 
     static Scanner scanner = new Scanner(System.in);
@@ -15,7 +14,7 @@ public class EjercOO {
     public static void main(String[] args) {
 
         //PARTE DE CREAR CUENTA INGRESOS Y RETIRADAS
-        String nombre, opcionIngreso;
+        String nombre, opcion;
         double cantidad = 0, ret;
 
         Cuenta nCuenta;
@@ -23,25 +22,33 @@ public class EjercOO {
         System.out.println("Nombre de la cuenta:");
         nombre = scanner.nextLine();
 
-        System.out.println("Desea realizar un ingreso (Si o No)");
-        opcionIngreso = scanner.nextLine();
+        nCuenta = new Cuenta(nombre);
 
-        if (opcionIngreso.equals("Si")) {
+        System.out.println("Desea realizar un ingreso (Si o No)");
+        opcion = scanner.nextLine().toUpperCase();
+
+        if (opcion.equals("SI")) {
             System.out.println("Cantidad a ingresar en la cuenta?");
             cantidad = scanner.nextDouble();
+            scanner.nextLine();
+            //Ingreso la cantidad pasada por teclado
+            nCuenta.ingresar(cantidad);
+
+            System.out.println("Desea realizar un retiro (Si o No)");
+            opcion = scanner.nextLine().toUpperCase();
+            if (opcion.equals("SI")) {
+                System.out.println("Cantidad a retirar");
+                ret = scanner.nextDouble();
+                //Retiro la cantidad pasada por teclado
+                nCuenta.Retirar(ret);
+
+            }
+
         }
-        //Creo la cuenta e ingreso la cantidad pasada por teclado
-        nCuenta = new Cuenta(nombre);
-        nCuenta.ingresar(cantidad);
 
-        //Pido cantidad a retirar
-        System.out.println("Cantidad a retirar");
-        ret = scanner.nextDouble();
-
-        nCuenta.Retirar(ret);
+        //Muestro los detalles de la cuenta
         System.out.println(nCuenta.toString());
 
     }
-
 
 }
