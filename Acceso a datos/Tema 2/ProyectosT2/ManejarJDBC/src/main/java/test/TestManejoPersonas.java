@@ -22,10 +22,10 @@ public class TestManejoPersonas {
         //MODIFICAR
         Persona personaModificar = new Persona(1, "Juanito", "Bonito", "Correo@gmail.com", 33);
         personaDao.actualizar(personaModificar);
-        personas = personaDao.seleccionar();
         //ELIMINAR
-        Persona personaEliminar = new Persona(2);
+        Persona personaEliminar = new Persona(7);
         personaDao.eliminar(personaEliminar);
+
         personas = personaDao.seleccionar();
 
         personas.forEach(persona -> {
