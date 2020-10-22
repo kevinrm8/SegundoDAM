@@ -14,7 +14,7 @@ public class Persona {
     private String nombre;
     private String apellidos;
     private int edad;
-
+    private String email;
     public Persona() {
     }
 
@@ -27,12 +27,35 @@ public class Persona {
         this.apellidos = apellidos;
         this.edad = edad;
     }
+        public Persona(String nombre, String apellidos,String email, int edad) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.edad = edad;
+        this.email = email;
+    }
 
     public Persona(int id_persona, String nombre, String apellidos, int edad) {
         this.id_persona = id_persona;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
+    }
+        public Persona(int id_persona, String nombre, String apellidos,String email, int edad) {
+        this.id_persona = id_persona;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.edad = edad;
+        this.email = email;
+    }
+
+ 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId_persona() {
