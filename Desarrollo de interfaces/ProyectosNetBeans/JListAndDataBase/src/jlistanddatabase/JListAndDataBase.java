@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package connectionwithsql;
+package jlistanddatabase;
 
-import ui.frame;
-import ui.frame_JList_DataBase;
-public class ConnectionWithSQL {
+/**
+ *
+ * @author kevmar
+ */
+public class JListAndDataBase {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        frame_JList_DataBase f = new frame_JList_DataBase();
-        f.setVisible(true);
+        // TODO code application logic here
     }
-
+    
 }
