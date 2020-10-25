@@ -18,7 +18,7 @@
 --
 -- Table structure for table `persona`
 --
-
+	use test;
 DROP TABLE IF EXISTS `persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

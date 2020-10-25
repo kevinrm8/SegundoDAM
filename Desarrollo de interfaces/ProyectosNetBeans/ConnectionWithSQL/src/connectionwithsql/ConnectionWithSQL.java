@@ -13,6 +13,7 @@ public class ConnectionWithSQL {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //frame f = new frame();
         frame_JList_DataBase f = new frame_JList_DataBase();
         f.setVisible(true);
     }

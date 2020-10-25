@@ -14,6 +14,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
+import DAO.ClientDAO;
+import DAO.Connection_DB;
+import DAO.client;
+import java.sql.*;
+import java.util.*;
+
 public class frame_JList_DataBase extends JFrame {
 
     private JPanel panel1 = new JPanel();
@@ -33,10 +39,11 @@ public class frame_JList_DataBase extends JFrame {
         panel2.setLayout(new FlowLayout());
         panel3.setLayout(new GridLayout(3, 1, 10, 10));
         panel4.setLayout(new FlowLayout());
+
         //Añado los DefaultModel a los JList
         listElementIzquierda = new JList(listModelIzquierda);
         listElementDerecha = new JList(listModelDerecha);
-        
+
         //Tamaño fijo de las listas
         listElementIzquierda.setFixedCellHeight(30);
         listElementIzquierda.setFixedCellWidth(200);
@@ -57,18 +64,48 @@ public class frame_JList_DataBase extends JFrame {
         panel3.add(print);
 
         //Añadir provisional lista izquierda
-        for (int i = 1; i <= 10; i++) {
-            listModelIzquierda.addElement("Elemento " + i);
-        }
-        for (int i = 1; i <= 10; i++) {
-            listModelDerecha.addElement("");
-        }
+//        for (int i = 1; i <= 10; i++) {
+//            listModelIzquierda.addElement("Elemento " + i);
+//        }
+//
         panel2.add(new JScrollPane(listElementIzquierda));
         panel4.add(new JScrollPane(listElementDerecha));
+        
+        
+        //CARGAR DATOS DEL MYSQL -- NO CONSIGO QUE CARGUE BIEN
+        try {
+            Connection_DB db_Connection = new Connection_DB();
+            Connection with = db_Connection.OpenConnection();
+            ClientDAO customerDAO = new ClientDAO();
+            listModelIzquierda.addElement(customerDAO.findAll(with));
+            db_Connection.CloseConnection(with);
 
-    }
-    
-    public void ActionListener(){
-    
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        derecha.addActionListener(e -> {
+
+            int index;
+            index = listElementIzquierda.getSelectedIndex();
+            // VER FORMA PROVISIONAL EL INDICE
+            System.out.println(index);
+            if (index >= 0) {
+                listModelDerecha.addElement(listElementIzquierda.getSelectedValue());
+                listModelIzquierda.removeElement(listElementIzquierda.getSelectedValue());
+            }
+        });
+        izquierda.addActionListener(e -> {
+
+            int index;
+            index = listElementDerecha.getSelectedIndex();
+            // VER FORMA PROVISIONAL EL INDICE
+            System.out.println(index);
+            if (index >= 0) {
+
+                listModelIzquierda.addElement(listElementDerecha.getSelectedValue());
+                listModelDerecha.removeElement(listElementDerecha.getSelectedValue());
+            }
+        });
     }
 }
