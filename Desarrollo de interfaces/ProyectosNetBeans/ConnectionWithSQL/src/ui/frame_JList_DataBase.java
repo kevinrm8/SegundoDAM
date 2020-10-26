@@ -63,44 +63,50 @@ public class frame_JList_DataBase extends JFrame {
         panel3.add(izquierda);
         panel3.add(print);
 
-        //Añadir provisional lista izquierda
-//        for (int i = 1; i <= 10; i++) {
-//            listModelIzquierda.addElement("Elemento " + i);
-//        }
-//
+
         panel2.add(new JScrollPane(listElementIzquierda));
         panel4.add(new JScrollPane(listElementDerecha));
         
         
-        //CARGAR DATOS DEL MYSQL -- NO CONSIGO QUE CARGUE BIEN
+        //CARGAR DATOS DEL MYSQL
+        
         try {
             Connection_DB db_Connection = new Connection_DB();
-            Connection with = db_Connection.OpenConnection();
+            Connection with = (Connection) db_Connection.OpenConnection();
             ClientDAO customerDAO = new ClientDAO();
-            listModelIzquierda.addElement(customerDAO.findAll(with));
+                    //Añado todos los elementos en la arraylist aux
+            ArrayList<client> aux = new ArrayList<client>();
+            aux = customerDAO.findAll(with);
+            //Introduzco uno a uno los elemenots de la Array en el Model
+            for(int i =0; i<aux.size();i++){
+            listModelIzquierda.addElement(aux.get(i));
+            }
             db_Connection.CloseConnection(with);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+        //Boton para añadir a la derecha
         derecha.addActionListener(e -> {
 
             int index;
             index = listElementIzquierda.getSelectedIndex();
-            // VER FORMA PROVISIONAL EL INDICE
-            System.out.println(index);
+            //VER FORMA PROVISIONAL EL INDICE
+            //System.out.println(index);
             if (index >= 0) {
                 listModelDerecha.addElement(listElementIzquierda.getSelectedValue());
                 listModelIzquierda.removeElement(listElementIzquierda.getSelectedValue());
             }
         });
+        
+        //Boton para volver a la izquierda
         izquierda.addActionListener(e -> {
 
             int index;
             index = listElementDerecha.getSelectedIndex();
-            // VER FORMA PROVISIONAL EL INDICE
-            System.out.println(index);
+            //VER FORMA PROVISIONAL EL INDICE
+            //System.out.println(index);
             if (index >= 0) {
 
                 listModelIzquierda.addElement(listElementDerecha.getSelectedValue());

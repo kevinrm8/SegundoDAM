@@ -42,8 +42,8 @@ public class ClientDAO {
 
     }
 
-    public List<client> findAll(Connection con) throws Exception {
-        List<client> listClients = new ArrayList();
+    public ArrayList<client> findAll(Connection con) throws Exception {
+        ArrayList<client> listClients = new ArrayList();
         Statement st = null;
         ResultSet rs = null;
         try {
