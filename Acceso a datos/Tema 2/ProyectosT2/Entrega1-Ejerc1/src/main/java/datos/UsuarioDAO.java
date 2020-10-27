@@ -17,6 +17,7 @@ public class UsuarioDAO {
     private static final String SQL_UPDATE = "UPDATE usuario SET Usuario=?, Password=? WHERE id_usuario=?";
     private static final String SQL_DELETE = "DELETE from usuario where id_usuario=?";
 
+    //Obtener los datos de la BBDD
     public ArrayList<Usuario> seleccionar() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -26,14 +27,14 @@ public class UsuarioDAO {
 
         try {
             conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt = conn.prepareStatement(SQL_SELECT); //Se ejecuta el select
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int id_usuario = rs.getInt(1);        // CAMBIAR LOS NOMBRES PARA QUE SEA IGUAL QUE LA BASE DE DATOS
                 String Usuario = rs.getString(2);
                 String Password = rs.getString(3);
-                us = new Usuario(id_usuario,Usuario,Password);
-                usuarios.add(us);
+                us = new Usuario(id_usuario,Usuario,Password); //Creo usuario con los datos obtenidos
+                usuarios.add(us); // Introduzco este usuario en el ArrayList
 
             }
         } catch (SQLException ex) {
@@ -54,7 +55,7 @@ public class UsuarioDAO {
         int registros = 0;
         try {
             conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt = conn.prepareStatement(SQL_INSERT); // Ejecuta el insert con los datos que le damos
             stmt.setString(1, usuario.getNombre());
             stmt.setString(2, usuario.getPassword());
             registros = stmt.executeUpdate();

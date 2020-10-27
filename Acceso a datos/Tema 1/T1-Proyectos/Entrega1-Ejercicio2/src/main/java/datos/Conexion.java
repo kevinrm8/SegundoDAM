@@ -5,15 +5,14 @@
  */
 package datos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
+/**
+ *
+ * @author kevin
+ */
 public class Conexion {
-
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/TEST?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        private static final String JDBC_URL = "jdbc:mysql://localhost:3306/concesionario?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String JDBC_USER = "root"; // NOMBRE DE USUARIO
     private static final String JDBC_PASSWORD = ""; // MI CONTRASEÑA PARA CONECTAR A LA BASE DE DATOS
 
@@ -32,5 +31,4 @@ public class Conexion {
     public static void close(Connection conn) throws SQLException {
         conn.close();
     }
-
 }

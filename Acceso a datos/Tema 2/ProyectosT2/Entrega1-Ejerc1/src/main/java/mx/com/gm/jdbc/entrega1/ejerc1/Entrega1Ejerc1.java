@@ -14,13 +14,12 @@ import java.sql.*;
 /**
  *
  * @author kevmar
+ * Practica 1 - Ejercicio 1
  */
 public class Entrega1Ejerc1 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws SQLException {
+        //Creo usuario y arraylist con los datos de la base de datos.
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         ArrayList<Usuario> usuarios = usuarioDAO.seleccionar();
 
@@ -28,9 +27,15 @@ public class Entrega1Ejerc1 {
 //        Usuario usuarioNuevo = new Usuario("Kevin", "contraKevin");
 //        usuarioDAO.insertar(usuarioNuevo);
 
-         Usuario usuarioModificar = new Usuario(1,"Kevin", "kevinContra");
-         usuarioDAO.actualizar(usuarioModificar);
-        
+        //Modifica un usuario indicando la id/posicion
+//         Usuario usuarioModificar = new Usuario(1,"Kevin", "kevinContra");
+//         usuarioDAO.actualizar(usuarioModificar);
+
+        //Elimina un usuario dandole la id/posicion
+//            Usuario usuarioEliminar = new Usuario(1);
+//            usuarioDAO.eliminar(usuarioEliminar);
+
+
         //Mostrar por pantalla todos los datos
         usuarios = usuarioDAO.seleccionar();
 
