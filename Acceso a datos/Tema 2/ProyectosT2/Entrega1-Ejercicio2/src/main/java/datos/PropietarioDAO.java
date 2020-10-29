@@ -7,7 +7,11 @@ package datos;
 
 /**
  *
- * @author kevin
+ * @author Kevin Rosales
+ * Fecha: 28/10/2020
+ * Asignatura: Acceso a Datos. 2ºDAM
+ * 
+ * Creacion de un concesionario con sus propietarios y coches asociados a la base de datos
  */
 import static datos.Conexion.close;
 import domain.Coche;
@@ -160,7 +164,7 @@ public class PropietarioDAO {
             }
             //Si existe un propietario con este DNI me busca sus coches y los imprimo por pantalla
             if (pr != null) {   
-                listaCoche = cdao.seleccionar(pr.getDNI());
+                listaCoche = cdao.seleccionar(pr.getDNI()); 
                 listaCoche.forEach(z -> {
                     System.out.println(z.toString());
                 });

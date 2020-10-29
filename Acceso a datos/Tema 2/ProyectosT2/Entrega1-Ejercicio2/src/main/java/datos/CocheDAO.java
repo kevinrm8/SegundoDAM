@@ -13,17 +13,23 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * @author kevin
+ *
+ * @author Kevin Rosales
+ * Fecha: 28/10/2020
+ * Asignatura: Acceso a Datos. 2ºDAM
+ * 
+ * Creacion de un concesionario con sus propietarios y coches asociados a la base de datos
  */
 
 public class CocheDAO {
 
     private static final String SQL_SELECT = "SELECT Matricula,Marca,Precio,DNI from coches";
     private static final String SQL_INSERT = "INSERT INTO coches(Matricula,Marca,Precio,DNI) VALUES(?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE coches SET Matricula=?,Marca=?,Precio=? WHERE DNI=?";
+    private static final String SQL_UPDATE = "UPDATE coches SET DNI=?,Marca=?,Precio=? WHERE Matricula=?";
     private static final String SQL_DELETE = "DELETE from coches where DNI=?"; // NOSE SI USAR DNI O MATRICULA
 
-    public ArrayList<Coche> seleccionar(String dni) throws SQLException {
+    // Guardo en un ArrayList todos los coches con un DNI especifico
+    public ArrayList<Coche> seleccionar(String dni) throws SQLException { 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -40,7 +46,7 @@ public class CocheDAO {
                 int Precio = rs.getInt(3);
                 String DNI = rs.getString(4);
                 co = new Coche(Matricula,Marca,Precio,DNI);
-                coches.add(co);
+                coches.add(co); 
 
             }
 
@@ -56,18 +62,12 @@ public class CocheDAO {
 
     }
 
-    public int insertar(Coche coche) {
+    public int insertar(Coche coche) { // Inserto un coche nuevo en la base da datos
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-
-        PropietarioDAO p = new PropietarioDAO();
-        Propietario pAux = new Propietario();
-        
-        
+    
         try {
-            pAux = p.buscarPropietario(coche.getDNI());
-            if(pAux!= null){
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, coche.getMatricula());
@@ -75,11 +75,7 @@ public class CocheDAO {
             stmt.setInt(3, coche.getPrecio());
             stmt.setString(4, coche.getDNI());
             registros = stmt.executeUpdate();
-            }else {
-                System.out.println("No existe propietario con ese DNI.");
-            }
-            
-            
+    
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -97,7 +93,7 @@ public class CocheDAO {
         return registros;
     }
 
-    public int actualizar(Coche coche) {
+    public int actualizar(Coche coche) { // Actualizar datos del coche
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -105,10 +101,10 @@ public class CocheDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, coche.getMatricula());
+            stmt.setString(1, coche.getDNI());
             stmt.setString(2, coche.getMarca());
             stmt.setInt(3, coche.getPrecio());
-            stmt.setString(4, coche.getDNI());
+            stmt.setString(4, coche.getMatricula());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -127,7 +123,7 @@ public class CocheDAO {
         return registros;
     }
 
-    public int eliminar(Coche coche) {
+    public int eliminar(Coche coche) { // Elimino un coche
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -152,7 +148,7 @@ public class CocheDAO {
         return registros;
     }
     
-        public Coche buscarCoche(String matricula) throws SQLException {
+        public Coche buscarCoche(String matricula) throws SQLException { // Busco si existe el coche dada su Matricula
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -181,7 +177,7 @@ public class CocheDAO {
     }
     
     
-       public int eliminarCochesDelPropietario(Coche coche) {
+       public int eliminarCochesDelPropietario(Coche coche) { // Elimino el coche del DNI en concreto
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;

@@ -7,7 +7,11 @@ package domain;
 
 /**
  *
- * @author kevin
+ * @author Kevin Rosales
+ * Fecha: 28/10/2020
+ * Asignatura: Acceso a Datos. 2ºDAM
+ * 
+ * Creacion de un concesionario con sus propietarios y coches asociados a la base de datos
  */
 public class Propietario {
     
