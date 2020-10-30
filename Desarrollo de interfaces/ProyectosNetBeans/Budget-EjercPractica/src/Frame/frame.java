@@ -10,6 +10,16 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,9 +27,10 @@ import javax.swing.border.TitledBorder;
  */
 public class frame extends JFrame {
 
+    private String factura = "";
     private JPanel panel = new JPanel(), panel1 = new JPanel(), panel2 = new JPanel(), panel3 = new JPanel(), panel4 = new JPanel(), panel5 = new JPanel();
     private JTextArea texto;
-    private JButton button, pre;
+    private JButton print, pre;
     //componentes micros, Ram,Monitors,Miscellanea
     private String[][] micros = {{"Intel 1", "300"}, {"Intel 2", "350"}, {"AMD 1", "200"}, {"AMD 2", "250"}};
     private String[][] ram = {{"RAM 1 GB", "50"}, {"RAM 2 GB", "75"}, {"RAM 4 GB", "100"}, {"RAM 8 GB", "200"}};
@@ -40,8 +51,8 @@ public class frame extends JFrame {
         panelNuevo.setLayout(new BorderLayout());
         panel.add(panelNuevo);
 
-        button = new JButton("PRINT");
-        panelNuevo.add(button, BorderLayout.NORTH);
+        print = new JButton("PRINT");
+        panelNuevo.add(print, BorderLayout.NORTH);
         pre = new JButton("Preview");
         panelNuevo.add(pre, BorderLayout.SOUTH);
 
@@ -99,21 +110,94 @@ public class frame extends JFrame {
         }
 
         pre.addActionListener(e -> {
-            action();
+            try {
+
+                factura = action();
+                texto.setText(factura);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
+        print.addActionListener(e -> {
+
+            try {
+                factura = action();
+                createPDF(factura);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
     }
 
     //BOTONES
-    public void action() {
-
+    public String action() throws FileNotFoundException {
+        String factura = "";
+        int precio, total = 0;
+        //Panel de micros
         for (int i = 0; i < panel2.getComponentCount(); i++) {
             JRadioButton rb = (JRadioButton) panel2.getComponent(i);
-
             if (rb.isSelected()) {
-                int aux = Integer.parseInt(micros[i][1]);
-                texto.setText(rb.getText() + "\n " + aux);
+                precio = Integer.parseInt(micros[i][1]);
+                total += precio;
+                factura += rb.getText() + "\t\t\t PRECIO: " + precio + "\n";
 
             }
+        }
+        //Panel de Ram
+        for (int i = 0; i < panel3.getComponentCount(); i++) {
+            JRadioButton rb = (JRadioButton) panel3.getComponent(i);
+
+            if (rb.isSelected()) {
+                precio = Integer.parseInt(ram[i][1]);
+                total += precio;
+                factura += rb.getText() + "\t\t\t PRECIO: " + precio + "\n";
+            }
+        }
+
+        //Panel de Monitores
+        for (int i = 0; i < panel4.getComponentCount(); i++) {
+            JRadioButton rb = (JRadioButton) panel4.getComponent(i);
+
+            if (rb.isSelected()) {
+                precio = Integer.parseInt(monitors[i][1]);
+                total += precio;
+                factura += rb.getText() + "\t\t\t PRECIO: " + precio + "\n";
+
+            }
+        }
+
+        //Panel de Miscellanea
+        for (int i = 0; i < panel5.getComponentCount(); i++) {
+            JCheckBox rb = (JCheckBox) panel5.getComponent(i);
+
+            if (rb.isSelected()) {
+                precio = Integer.parseInt(miscellanea[i][1]);
+                total += precio;
+                factura += rb.getText() + "\t\t\t PRECIO: " + precio + "\n";
+
+            }
+        }
+
+        return factura + "\n Precio total: " + total;
+
+    }
+
+    public void createPDF(String factura) throws FileNotFoundException {
+        try {
+
+            //esta parte es fija, no se cambia
+            Document doc = new Document(PageSize.A4, 50, 50, 100, 72);
+            PdfWriter.getInstance(doc, new FileOutputStream("FacturaPC.pdf"));
+            doc.open();
+            Paragraph p = new Paragraph(factura);
+            p.setAlignment(Element.ALIGN_JUSTIFIED);
+
+            doc.add(p);
+            doc.close();
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
