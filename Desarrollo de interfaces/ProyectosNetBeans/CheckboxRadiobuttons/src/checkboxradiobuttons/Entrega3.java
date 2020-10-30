@@ -14,6 +14,8 @@ import javax.swing.*;
  * @author kevmar
  */
 public class Entrega3 extends JFrame {
+    
+    
 
     private JLabel PreguntaSexo, PreguntaHijos; // se utiliza para mostrar los cambios en el tipo de letra
     private ButtonGroup optionsGroup; // grupo de botones que contiene los botones de opción

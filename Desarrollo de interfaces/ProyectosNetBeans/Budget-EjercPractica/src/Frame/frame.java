@@ -6,6 +6,8 @@
 package Frame;
 
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -18,31 +20,30 @@ public class frame extends JFrame {
     private JPanel panel = new JPanel(), panel1 = new JPanel(), panel2 = new JPanel(), panel3 = new JPanel(), panel4 = new JPanel(), panel5 = new JPanel();
     private JTextArea texto;
     private JButton button, pre;
+    //componentes micros, Ram,Monitors,Miscellanea
+    private String[][] micros = {{"Intel 1", "300"}, {"Intel 2", "350"}, {"AMD 1", "200"}, {"AMD 2", "250"}};
+    private String[][] ram = {{"RAM 1 GB", "50"}, {"RAM 2 GB", "75"}, {"RAM 4 GB", "100"}, {"RAM 8 GB", "200"}};
+    private String[][] monitors = {{"LG1", "100"}, {"LG2", "175"}, {"HP1", "200"}, {"HP2", "300"}};
+    private String[][] miscellanea = {{"Mouse normal", "20"}, {"Mouse pro", "149"}, {"Keyboard normal", "49"}, {"Keyboard pro", "299"}};
 
     public frame() {
         setSize(500, 500);
         setTitle("Choose a computer");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //componentes micros, Ram,Monitors,Miscellanea
-        String[][] micros = {{"Intel 1", "300"}, {"Intel 2", "350"}, {"AMD 1", "200"}, {"AMD 2", "250"}};
-        String[][] ram = {{"RAM 1 GB", "50"}, {"RAM 2 GB", "75"}, {"RAM 4 GB", "100"}, {"RAM 8 GB", "200"}};
-        String[][] monitors = {{"LG1", "100"}, {"LG2", "175"}, {"HP1", "200"}, {"HP2", "300"}};
-        String[][] miscellanea = {{"Mouse normal", "20"}, {"Mouse pro", "149"}, {"Keyboard normal", "49"}, {"Keyboard pro", "299"}};
-
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(new GridLayout(2, 1, 10, 10));
         panel1.setLayout(new GridLayout(1, 4, 10, 10));
         add(panel);
+        panel.add(panel1);
 
         JPanel panelNuevo = new JPanel();
-        panelNuevo.setLayout(new GridLayout(3, 1, 10, 10));
-        panel.add(panelNuevo, BorderLayout.CENTER);
-        panelNuevo.add(panel1);
+        panelNuevo.setLayout(new BorderLayout());
+        panel.add(panelNuevo);
 
         button = new JButton("PRINT");
-        panelNuevo.add(button, new BorderLayout());
+        panelNuevo.add(button, BorderLayout.NORTH);
         pre = new JButton("Preview");
-        panelNuevo.add(pre, new BorderLayout());
+        panelNuevo.add(pre, BorderLayout.SOUTH);
 
         panel1.add(panel2);
         panel1.add(panel3);
@@ -51,6 +52,9 @@ public class frame extends JFrame {
 
         //la uso para imprimir, no la añado a ningún panel:
         texto = new JTextArea();
+        //  texto.setRows(5);
+        //PROBAR PARA VISUALIZAR
+        panelNuevo.add(texto, BorderLayout.CENTER);
         //Borde al panel micros
         TitledBorder title;
 
@@ -94,6 +98,22 @@ public class frame extends JFrame {
             panel5.add(jb);
         }
 
+        pre.addActionListener(e -> {
+            action();
+        });
     }
 
+    //BOTONES
+    public void action() {
+
+        for (int i = 0; i < panel2.getComponentCount(); i++) {
+            JRadioButton rb = (JRadioButton) panel2.getComponent(i);
+
+            if (rb.isSelected()) {
+                int aux = Integer.parseInt(micros[i][1]);
+                texto.setText(rb.getText() + "\n " + aux);
+
+            }
+        }
+    }
 }
