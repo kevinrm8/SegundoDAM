@@ -15,7 +15,7 @@ public class Connection_DB {
             String urlOdbc = "jdbc:mysql://localhost:3306/di?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
 // create connection. NOTE in my case MySql user -> root, empty password
-            con = (java.sql.DriverManager.getConnection(urlOdbc, "root", ""));
+            con = (java.sql.DriverManager.getConnection(urlOdbc, "root", "123456789"));
             return con;
         } catch (Exception e) {// SQLException and ClassNotFoundException
             e.printStackTrace();

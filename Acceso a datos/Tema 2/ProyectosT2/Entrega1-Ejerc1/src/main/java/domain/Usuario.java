@@ -33,8 +33,6 @@ public class Usuario {
         this.id_usuario = id_usuario;
     }
     
-    
-
     public int getIdusuario() {
         return id_usuario;
     }

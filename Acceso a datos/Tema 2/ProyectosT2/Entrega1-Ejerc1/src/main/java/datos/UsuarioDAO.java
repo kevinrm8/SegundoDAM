@@ -30,7 +30,7 @@ public class UsuarioDAO {
             stmt = conn.prepareStatement(SQL_SELECT); //Se ejecuta el select
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_usuario = rs.getInt(1);        // CAMBIAR LOS NOMBRES PARA QUE SEA IGUAL QUE LA BASE DE DATOS
+                int id_usuario = rs.getInt(1);        
                 String Usuario = rs.getString(2);
                 String Password = rs.getString(3);
                 us = new Usuario(id_usuario,Usuario,Password); //Creo usuario con los datos obtenidos

@@ -71,6 +71,7 @@ public class frame extends JFrame {
         aceptarPlayer2 = new JButton("Accept");
         aceptarPlayer2.setEnabled(false);
         panelPlayer2.add(aceptarPlayer2);
+        panelPlayer2.add(resolver);
         
         aceptarPlayer1.addActionListener(l -> {
             introducirPalabraSecreta();
@@ -80,21 +81,20 @@ public class frame extends JFrame {
 
     private void introducirPalabraSecreta() {
         char[] respuestas;
-        String pal;
+        String aux="";
         vc = pass.getPassword();
-        respuestas = new char[vc.length];
         
         
          // Rellenamos palabras ocn guiones
-        for(int i = 0; i < respuestas.length; i++){
-            respuestas[i] = '-';
+        for(int i = 0; i < vc.length; i++){
+            aux +="-";
         }
+        resolver.setText(aux);
+        
         
         aceptarPlayer1.setEnabled(false);
         aceptarPlayer2.setEnabled(true);
         
         panelPlayer2.add(aceptarPlayer2);
-        System.out.println(vc);
-
     }
 }
