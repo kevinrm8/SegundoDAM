@@ -84,7 +84,7 @@ public class JoinFils implements Runnable {
 		fil_1.join(); //se une al final del hilo fil_1
 		fil_2.join();
 		fil_3.join();
- 
+
 		//ahora han terminado los 3 y realiza la suma.
  
 		System.out.println("Total tirada: "+ ans.getSumaTirada());

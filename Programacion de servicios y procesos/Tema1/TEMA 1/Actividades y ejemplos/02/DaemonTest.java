@@ -4,7 +4,7 @@ import java.io.*;
 class WorkerThread extends Thread { 
 	
 	public WorkerThread() { 
-		setDaemon(false) ; 
+		setDaemon(true) ; 
 		// When false, (i.e. when it's a user thread), 
 		// the Worker thread continues to run. 
 		

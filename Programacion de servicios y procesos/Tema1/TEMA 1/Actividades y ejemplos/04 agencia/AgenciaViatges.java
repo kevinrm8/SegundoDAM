@@ -1,13 +1,10 @@
 import java.io.*;
 
-
-
-
  
 class SeientsAvio {
 	
 	//comencem amb 5 seients lliures a l’avió
-	private int seientsLliures = 5;
+	private int seientsLliures = 11;
  
 	public int getSeientsLliures(){
 		return seientsLliures;
@@ -33,14 +30,6 @@ class SeientsAvio {
 
 
 
-
-
-
-
-
-
-
-
  
 //Implementem runnable per poder crear fils sobre les seves instàncies
 public class AgenciaViatges implements Runnable {
@@ -51,6 +40,7 @@ public class AgenciaViatges implements Runnable {
  
  
 	public void run(){
+		System.out.println(Thread.currentThread().getName()+" vol fer una reserva");
 		gestioSeientsAvio(3);
 		if(sa.getSeientsLliures()<=0)
 			System.out.println("No hi ha seients lliures");
@@ -74,7 +64,7 @@ public class AgenciaViatges implements Runnable {
  
 			System.out.println(Thread.currentThread().getName() + " Reserva realitzada amb èxit."+" Les places lliures són "+sa.getSeientsLliures());
 			
-			} else {
+		} else {
 				
 				System.out.println("No hi ha places suficients pel client." + Thread.currentThread().getName()+" Les places lliures són "+sa.getSeientsLliures());
 				try {
@@ -96,11 +86,18 @@ AgenciaViatges objAg = new AgenciaViatges();
 //creem els dos fils sobre la mateixa instància
 Thread Fil_1 = new Thread(objAg);
 Thread Fil_2 = new Thread(objAg);
+Thread Fil_3 = new Thread(objAg);
+Thread Fil_4 = new Thread(objAg);
+
 Fil_1.setName("Client 1");
 Fil_2.setName("Client 2");
+Fil_3.setName("Client 3");
+Fil_4.setName("Client 4");
  
 Fil_1.start();
 Fil_2.start();
+Fil_3.start();
+Fil_4.start();
  
 }
 } //FIN MAIN
