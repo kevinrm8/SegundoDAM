@@ -17,10 +17,15 @@ public class frameGalore extends JFrame {
     private JPanel panelFondo = new JPanel();
     private JButton Binfo, Badvertencia, Berror, Bconfirmacion, Btexto, Bcombo, Bmas;
 
+    public static void main(String[] args) {
+        frameGalore f = new frameGalore();
+        f.setVisible(true);
+    }
+
     public frameGalore() {
 
-        setBounds(600, 300, 500, 100);
-        setTitle("OptionGalore");
+        setBounds(600, 300, 500, 150);
+        setTitle("Montones de JOptionPane");
 
         add(panelFondo);
 
@@ -89,19 +94,60 @@ public class frameGalore extends JFrame {
                 break;
             case 4:
                 String num;
-            num = JOptionPane.showInputDialog(null, "Escribe un numero para multiplicar por 2","Entrada",
-                    JOptionPane.QUESTION_MESSAGE);
+                int mult;
+                num = JOptionPane.showInputDialog(null, "Escribe un numero para multiplicar por 2", "Entrada",
+                        JOptionPane.QUESTION_MESSAGE);
                 // the icon will be a questioner
-            try{
-                
-            }catch(Exception e){
-            
-            }
-            
+                try {
+                    mult = Integer.parseInt(num) * 2;
+                    JOptionPane.showMessageDialog(null, "El resultado de la multiplicar 2 * " + Integer.parseInt(num) + " es:" + mult);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Debe introducir un numero",
+                            "ERROR_MESSAGE",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
             case 5:
+                Object selColores = JOptionPane.showInputDialog(null,
+                        "Select option",
+                        "Options Selector",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new Object[]{"Amarillo", "Verde", "Azul", "Rojo"},
+                        "Select");
+
+                JOptionPane.showMessageDialog(null, "Color seleccionado: " + selColores, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
                 break;
             case 6:
+                int select = JOptionPane.showOptionDialog(
+                        null, // parent component
+                        "Select option",
+                        "Options Selector",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, // null for default icon or an icon.
+                        new Object[]{"Yes", "No", "Cancel"},
+                        // null for YES, NO and CANCEL
+                        "option 1");
+//                if (select != -1) {
+//                    System.out.println("selected option" + (select + 1));
+//                }
+
+                if (select == 0) {
+                    JCheckBox cb = new JCheckBox("A veces");
+                    JCheckBox cb1 = new JCheckBox("A menudo");
+                    JCheckBox cb2 = new JCheckBox("Siempre");
+
+                    Object[] params = {"Seleccione una opcion", cb, cb1, cb2};
+                    //int n = JOptionPane.showMessageDialog(null, params);
+                    JOptionPane.showMessageDialog(null, params, "Entrada",
+                            JOptionPane.QUESTION_MESSAGE);
+                }
+                if (select == 1) {
+                    JOptionPane.showMessageDialog(null, "Pues es muy útil", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
                 break;
 
         }
