@@ -5,6 +5,7 @@
  */
 package menus.ejemplos;
 
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
@@ -15,7 +16,10 @@ import java.util.*;
 public class frameMenus extends JFrame {
 
     JPanel panel = new JPanel();
+
     public frameMenus() {
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JMenuBar menuBar;
         JMenu menu;
@@ -28,7 +32,8 @@ public class frameMenus extends JFrame {
         menuBar.add(menu);
 // to the first option of the menu we put two items.
         menuItem = new JMenuItem("Option 1");
-
+        //Añadir listener a una opción del menú:F
+        menuItem.addActionListener(new em(this));
         menu.add(menuItem);
 
         menu.addSeparator(); //separator
@@ -39,9 +44,27 @@ public class frameMenus extends JFrame {
         menu = new JMenu("Second Menu");
 
         menuBar.add(menu);
-        add(panel);        
+        add(panel);
         panel.add(menuBar);
-        setSize(500,500);
+        setSize(500, 500);
         //panel.add(menu);
+    }
+
+    //LISTENER FUERA
+    class em implements ActionListener {
+
+        JFrame miFrame;
+
+        public em(JFrame f) {
+            miFrame = f;
+        }
+        public void actionPerformed(ActionEvent e){
+        
+        DialogoModal dialogoModal = new DialogoModal(miFrame);
+        dialogoModal.pack();
+        //para darle tamaño auomatico
+        dialogoModal.setVisible(true);
+            System.out.println(dialogoModal.getText());
+        }
     }
 }
