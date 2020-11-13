@@ -1,0 +1,22 @@
+Sistema: 2 proc
+pantalla maximo
+
+Parte 2 del lbro esta explicado como instalar
+
+Hacer carpeta compartida para los servers, esta en la carpeta del Libro. Hay que copiarlo al disco duro huesped
+
+Incluye en la instalación el SGBD PostreSQL usando como usuario de conexión al SGBD “SGBDsge”  y como contraseña admin.sgbd. 
+
+configuracion de postgres, hay que editar el propio sql
+
+
+configuracion del xp:
+
+Red . en vez de nat tenemos que poner Red interna
+
+Lo siguiente es ponerle la IP
+
+Desactivar firewall
+
+Intentar ping - hasta que no se vea el ping no hacer el gtk
+

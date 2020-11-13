@@ -1,4 +1,0 @@
-#Wed Sep 30 10:48:49 CEST 2020
-base.0=/home/kevmar/Escritorio/2ºDAM/SegundoDAM/Programación multimedia y dispositivos moviles/SumaAplicacion/app/build/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

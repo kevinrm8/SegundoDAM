@@ -1,4 +1,0 @@
-#Mon Sep 28 10:05:09 CEST 2020
-base.0=/home/kevmar/Escritorio/2ºDAM/SegundoDAM/Programación multimedia y dispositivos moviles/HolaMundo3/app/build/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

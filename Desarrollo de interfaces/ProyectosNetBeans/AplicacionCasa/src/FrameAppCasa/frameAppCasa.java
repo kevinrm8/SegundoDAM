@@ -40,6 +40,7 @@ public class frameAppCasa extends JFrame {
 
         menuItemHabitacion1 = new JMenuItem("Habitacion 1");
         menuItemHabitacion2 = new JMenuItem("Habitacion 2");
+        menuItemHabitacion2.setEnabled(false);
         menuHabitaciones.add(menuItemHabitacion1);
         menuHabitaciones.add(menuItemHabitacion2);
 

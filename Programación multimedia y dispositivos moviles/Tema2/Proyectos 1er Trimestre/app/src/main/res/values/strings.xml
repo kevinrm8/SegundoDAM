@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">EjercicioEntregaPerro</string>
-    <string name="app_name2">Visor</string>
-    <string name="show_pet_button">Mostrar Boton mascota</string>
-    <string name="img_perro">Perro Lindo</string>
-    <dimen name = "activity_horizontal_margin">10dp</dimen>
-    <dimen name = "activity_vertical_margin">10dp</dimen>
-</resources>
