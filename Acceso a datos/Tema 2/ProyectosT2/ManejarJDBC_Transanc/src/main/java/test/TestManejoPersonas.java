@@ -9,29 +9,60 @@ import java.util.*;
 import java.sql.*;
 import datos.PersonaDAO;
 import domain.Persona;
+import datos.Conexion;
 
 public class TestManejoPersonas {
 
     public static void main(String[] args) throws SQLException {
-        PersonaDAO personaDao = new PersonaDAO();
-        List<Persona> personas = personaDao.seleccionar();
+        Connection conexion = null;
 
-        //insertano nuevo objeto de tipo persona
-        // Persona personaNueva = new Persona("carlos", "perez","correo@email.com", 54);
-        //personaDao.insertar(personaNueva);
-        //MODIFICAR
-        Persona personaModificar = new Persona(1, "Juanito", "Bonito", "Correo@gmail.com", 33);
-        personaDao.actualizar(personaModificar);
-        //ELIMINAR
-        Persona personaEliminar = new Persona(7);
-        personaDao.eliminar(personaEliminar);
+        try {
+            conexion = Conexion.getConnection();
+            if (conexion.getAutoCommit()) {
+                conexion.setAutoCommit(false);
+            }
+            PersonaDAO personaDAO = new PersonaDAO();
+            Persona cambioPersona = new Persona();
+            cambioPersona.setId_persona(8);
+            cambioPersona.setNombre("Karla Ivonne");
+            cambioPersona.setApellidos("Gomez");
+            cambioPersona.setEmail("kgomez@mail.com");
+            cambioPersona.setEdad(10);
 
-        personas = personaDao.seleccionar();
+            personaDAO.actualizar(cambioPersona);
+            //cambioPersona.set("7713445678");
+            Persona nuevaPersona = new Persona();
+            nuevaPersona.setId_persona(10);
+            nuevaPersona.setNombre("Federico");
+            nuevaPersona.setApellidos("Ramirez");
+            nuevaPersona.setEmail("popgjfghdhez@mail.com");
+            nuevaPersona.setEdad(50);
 
-        personas.forEach(persona -> {
-            System.out.println("persona = " + persona);
-        });
+            personaDAO.actualizar(nuevaPersona);
+
+            Persona insert_persona = new Persona();
+
+            insert_persona.setNombre("Axel566666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
+            insert_persona.setApellidos("guapo");
+            insert_persona.setEmail("coorre@asdad");
+            insert_persona.setEdad(18);
+
+            personaDAO.insertar(insert_persona);
+
+            //  personaDAO.insertar(nuevaPersona);
+            
+            conexion.commit();
+            System.out.println("Se ha hecho commit de la transaccion");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+            System.out.println("Entramos al rollback");
+            try {
+                conexion.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace(System.out);
+            }
+        }
 
     }
-
 }

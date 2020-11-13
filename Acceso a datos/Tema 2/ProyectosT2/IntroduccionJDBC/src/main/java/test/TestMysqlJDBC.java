@@ -17,7 +17,7 @@ public class TestMysqlJDBC {
             //puede ser que sea requerido lo siguiente
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection conexion = DriverManager.getConnection(url, "root", "accesodatos");
+            Connection conexion = DriverManager.getConnection(url, "root", "123456789");
             Statement instruccion = conexion.createStatement();
             String sql = "SELECT id_persona, Nombre, Apellidos, Edad FROM persona";
             ResultSet resultado = instruccion.executeQuery(sql);

@@ -17,11 +17,12 @@ public class PersonaDAO {
     private static final String SQL_UPDATE = "UPDATE persona SET Nombre=?, Apellidos=?,Email=?,Edad=? WHERE id_persona=?";
     private static final String SQL_DELETE = "DELETE from persona where id_persona=?";
     private Connection conexionTransaccional;
-    
-    public PersonaDAO(){}
-    
-    public PersonaDAO(Connection conexionTransaccional){
-    this.conexionTransaccional = conexionTransaccional;
+
+    public PersonaDAO() {
+    }
+
+    public PersonaDAO(Connection conexionTransaccional) {
+        this.conexionTransaccional = conexionTransaccional;
     }
 
     public List<Persona> seleccionar() throws SQLException {
@@ -32,7 +33,10 @@ public class PersonaDAO {
         List<Persona> personas = new ArrayList<>();
 
         try {
-            conn = Conexion.getConnection();
+            conn = this.conexionTransaccional != null
+                    ? this.conexionTransaccional : Conexion.getConnection();
+
+            // conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -44,23 +48,28 @@ public class PersonaDAO {
                 personas.add(persona);
 
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace(System.out);
         } finally {
-            Conexion.close(conn);
             Conexion.close(rs);
             Conexion.close(stmt);
+            if (this.conexionTransaccional == null) {
+                Conexion.close(conn);
+            }
         }
         return personas;
 
     }
 
-    public int insertar(Persona persona) {
+    public int insertar(Persona persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
-            conn = Conexion.getConnection();
+            conn = this.conexionTransaccional != null
+                    ? this.conexionTransaccional : Conexion.getConnection();
+
+            // conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, persona.getNombre());
             stmt.setString(2, persona.getApellidos());
@@ -68,29 +77,35 @@ public class PersonaDAO {
             stmt.setInt(4, persona.getEdad());
             registros = stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
+                if (this.conexionTransaccional == null) {
+                    Conexion.close(conn);
+                }
             } catch (SQLException ex) {
             }
-            try {
-                close(conn);
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
-            }
+//            try {
+//                close(conn);
+//            } catch (SQLException ex) {
+//                ex.printStackTrace(System.out);
+//            }
         }
 
         return registros;
     }
 
-    public int actualizar(Persona persona) {
+    public int actualizar(Persona persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
-            conn = Conexion.getConnection();
+            conn = this.conexionTransaccional != null
+                    ? this.conexionTransaccional : Conexion.getConnection();
+
+            //   conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, persona.getNombre());
             stmt.setString(2, persona.getApellidos());
@@ -98,43 +113,52 @@ public class PersonaDAO {
             stmt.setInt(4, persona.getEdad());
             stmt.setInt(5, persona.getId_persona());
             stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
+                if (this.conexionTransaccional == null) {
+                    Conexion.close(conn);
+                }
             } catch (SQLException ex) {
             }
-            try {
-                close(conn);
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
-            }
+//            try {
+//                close(conn);
+//            } catch (SQLException ex) {
+//                ex.printStackTrace(System.out);
+//            }
         }
         return registros;
     }
-    
-    public int eliminar(Persona persona) {
+
+    public int eliminar(Persona persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
-            conn = Conexion.getConnection();
+            conn = this.conexionTransaccional != null
+                    ? this.conexionTransaccional : Conexion.getConnection();
+
+            //     conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, persona.getId_persona());
             stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
+                if (this.conexionTransaccional == null) {
+                    Conexion.close(conn);
+                }
             } catch (SQLException ex) {
             }
-            try {
-                close(conn);
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
-            }
+//            try {
+//                close(conn);
+//            } catch (SQLException ex) {
+//                ex.printStackTrace(System.out);
+//            }
         }
         return registros;
     }
