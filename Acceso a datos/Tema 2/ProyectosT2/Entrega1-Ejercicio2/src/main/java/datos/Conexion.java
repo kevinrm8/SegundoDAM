@@ -18,7 +18,7 @@ import java.sql.*;
 public class Conexion {
         private static final String JDBC_URL = "jdbc:mysql://localhost:3306/concesionario?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String JDBC_USER = "root"; // NOMBRE DE USUARIO
-    private static final String JDBC_PASSWORD = "123456789"; // MI CONTRASEÑA PARA CONECTAR A LA BASE DE DATOS
+    private static final String JDBC_PASSWORD = ""; // MI CONTRASEÑA PARA CONECTAR A LA BASE DE DATOS
 
     public static Connection getConnection() throws SQLException {
     return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
