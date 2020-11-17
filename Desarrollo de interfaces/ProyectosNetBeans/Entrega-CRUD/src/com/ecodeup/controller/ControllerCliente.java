@@ -12,13 +12,15 @@ import com.ecodeup.dao.ClienteDaoImpl;
 import com.ecodeup.idao.IClienteDao;
 import com.ecodeup.model.Cliente;
 import com.ecodeup.vista.ViewCliente;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author kevin
  */
 public class ControllerCliente {
 	
-	private ViewCliente vista= new ViewCliente();
+	//private ViewCliente vista= new ViewCliente();
 	
 	public ControllerCliente() {
 	}
@@ -42,10 +44,12 @@ public class ControllerCliente {
 	}
 	
 	//llama al DAO para obtener todos los clientes y luego los muestra en la vista
-	public void verClientes(){
-		List<Cliente> clientes = new ArrayList<Cliente>();
+	public DefaultTableModel verClientes(){
+                DefaultTableModel client;
+                
 		IClienteDao dao= new  ClienteDaoImpl();
-		clientes=dao.obtener();
-		vista.verClientes(clientes);
+		client=dao.obtener();
+		//vista.verClientes(clientes); Es para mostrar clientes por pantalla
+                return client;
 	}
 }

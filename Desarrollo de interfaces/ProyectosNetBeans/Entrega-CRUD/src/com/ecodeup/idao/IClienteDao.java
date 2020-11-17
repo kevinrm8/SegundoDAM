@@ -7,13 +7,14 @@ package com.ecodeup.idao;
 import java.util.List;
  
 import com.ecodeup.model.Cliente;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author kevin
  */
 public interface IClienteDao {
     	public boolean registrar(Cliente cliente);
-	public List<Cliente> obtener();
+	public DefaultTableModel obtener();
 	public boolean actualizar(Cliente cliente);
 	public boolean eliminar(Cliente cliente);
 }

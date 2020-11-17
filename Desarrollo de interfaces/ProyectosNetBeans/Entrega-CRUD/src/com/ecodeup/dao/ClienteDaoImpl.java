@@ -11,6 +11,7 @@ import java.util.*;
 import com.connection.Conexion;
 import com.ecodeup.idao.IClienteDao;
 import com.ecodeup.model.Cliente;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ClienteDaoImpl implements IClienteDao {
         Connection con = null;
 
         String sql = "INSERT INTO users values(NULL,'" + cliente.getName() + "','" + cliente.getLast_name()
-                + "','" + cliente.getUser_name()+"','" + cliente.getPassword() + "','" + cliente.getEmail() + "')";
+                + "','" + cliente.getUser_name() + "','" + cliente.getPassword() + "','" + cliente.getEmail() + "')";
 
         try {
             con = Conexion.conectar();
@@ -43,28 +44,30 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 
     @Override
-    public List<Cliente> obtener() {
+    public DefaultTableModel obtener() {
         Connection co = null;
         Statement stm = null;
         ResultSet rs = null;
 
-        String sql = "SELECT * FROM users ORDER BY user_id";
+        String sql = "SELECT * FROM users";
 
-        List<Cliente> listaCliente = new ArrayList<Cliente>();
+        DefaultTableModel listaCliente = new DefaultTableModel();
+
+        // Hace falta poner la cabecera aqui para que aparezcan los datos en la tabla
+        String[] headers = new String[]{
+            "User_ID", "Name", "Last_Name", "User_Name", "Password", "Email"
+        };
+        listaCliente.setColumnIdentifiers(headers);
 
         try {
             co = Conexion.conectar();
             stm = co.createStatement();
             rs = stm.executeQuery(sql);
             while (rs.next()) {
-                Cliente c = new Cliente();
-                c.setUser_id(rs.getInt(1));
-                c.setName(rs.getString(2));
-                c.setLast_name(rs.getString(3));
-                c.setUser_name(rs.getString(4));
-                c.setPassword(rs.getString(4));
-                c.setEmail(rs.getString(4));
-                listaCliente.add(c);
+
+                Object[] data = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5), rs.getObject(6)};
+                listaCliente.addRow(data);
+
             }
             stm.close();
             rs.close();
@@ -84,9 +87,9 @@ public class ClienteDaoImpl implements IClienteDao {
 
         boolean actualizar = false;
 
-        String sql = "UPDATE users SET name='" + cliente.getName() + "', last_name='" + cliente.getLast_name() + 
-                "', user_name='" + cliente.getUser_name() + "', password='" + cliente.getPassword() + 
-                "', email='" + cliente.getEmail() + "'" + " WHERE user_id=" + cliente.getUser_id();
+        String sql = "UPDATE users SET name='" + cliente.getName() + "', last_name='" + cliente.getLast_name()
+                + "', user_name='" + cliente.getUser_name() + "', password='" + cliente.getPassword()
+                + "', email='" + cliente.getEmail() + "'" + " WHERE user_id=" + cliente.getUser_id();
         try {
             connect = Conexion.conectar();
             stm = connect.createStatement();
@@ -101,21 +104,22 @@ public class ClienteDaoImpl implements IClienteDao {
 
     @Override
     public boolean eliminar(Cliente cliente) {
-		Connection connect= null;
-		Statement stm= null;
-		
-		boolean eliminar=false;
-				
-		String sql="DELETE FROM users WHERE user_id="+cliente.getUser_id();
-		try {
-			connect=Conexion.conectar();
-			stm=connect.createStatement();
-			stm.execute(sql);
-			eliminar=true;
-		} catch (SQLException e) {
-			System.out.println("Error: Clase ClienteDaoImple, método eliminar");
-			e.printStackTrace();
-		}		
-		return eliminar;    }
+        Connection connect = null;
+        Statement stm = null;
+
+        boolean eliminar = false;
+
+        String sql = "DELETE FROM users WHERE user_id=" + cliente.getUser_id();
+        try {
+            connect = Conexion.conectar();
+            stm = connect.createStatement();
+            stm.execute(sql);
+            eliminar = true;
+        } catch (SQLException e) {
+            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            e.printStackTrace();
+        }
+        return eliminar;
+    }
 
 }
