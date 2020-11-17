@@ -19,7 +19,7 @@ public class Conexion {
         Connection con = null;
 
         String usuario = "root";
-        String password = "";
+        String password = "123456789";
        // String url = "jdbc:mysql://localhost:3306/sampledb?serverTimezone=UTC"+"user=" + usuario
              //   + "&password=" + password;
 

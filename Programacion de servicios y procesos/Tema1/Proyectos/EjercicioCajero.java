@@ -1,5 +1,5 @@
 /*
- * ejemploSuma.java
+ * EjercicioCajero.java
  * 
  * Copyright 2020 kevmar <kevmar@PC21>
  * 
@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * 
  */
 
 
@@ -26,23 +25,32 @@ public class sin título {
 	
 	public static void main (String[] args) {
 		
-			int [] vector = vector{1,2,3,4,5,6,7,8,9};
-			
-			
-			sumadorVector s1 = new sumadorVector(vector,0,1);
-			sumadorVector s2 = new sumadorVector(vector,2,3);
-			sumadorVector s3 = new sumadorVector(vector,4,5);
-			sumadorVector s4 = new sumadorVector(vector,6,7);
-
+		VerificarCuenta vc = new VerificarCuenta();
+		
+		Thread Luis = new Thread(vc,"Luis");
+		Thread Manuel = new Thread(vc,"Manuel");
+		
+		Luis.start();
+		Manuel.start();
 		
 	}
-	
-	public void sumadorVector(){
-		
-				int sumaTotal;
-				
-				
-		
-		}
 }
 
+public class Luis implements Runnable{
+
+	public Luis(){
+		
+		}
+		
+		public run(){
+			
+			}
+}
+public class VerificarCuenta{
+	
+	private double dinero;
+	
+	public Cuenta(){
+		
+		}
+	}

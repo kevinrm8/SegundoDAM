@@ -18,39 +18,27 @@ public class TestManejoPersonas {
 
         try {
             conexion = Conexion.getConnection();
+
             if (conexion.getAutoCommit()) {
                 conexion.setAutoCommit(false);
             }
-            PersonaDAO personaDAO = new PersonaDAO();
-            Persona cambioPersona = new Persona();
-            cambioPersona.setId_persona(8);
-            cambioPersona.setNombre("Karla Ivonne");
-            cambioPersona.setApellidos("Gomez");
-            cambioPersona.setEmail("kgomez@mail.com");
-            cambioPersona.setEdad(10);
-
-            personaDAO.actualizar(cambioPersona);
-            //cambioPersona.set("7713445678");
-            Persona nuevaPersona = new Persona();
-            nuevaPersona.setId_persona(10);
-            nuevaPersona.setNombre("Federico");
-            nuevaPersona.setApellidos("Ramirez");
-            nuevaPersona.setEmail("popgjfghdhez@mail.com");
-            nuevaPersona.setEdad(50);
-
-            personaDAO.actualizar(nuevaPersona);
+            PersonaDAO personaDao = new PersonaDAO(conexion);
 
             Persona insert_persona = new Persona();
-
-            insert_persona.setNombre("Axel566666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
-            insert_persona.setApellidos("guapo");
+            insert_persona.setNombre("Axel");
+            insert_persona.setApellidos("No deberia insertar");
             insert_persona.setEmail("coorre@asdad");
             insert_persona.setEdad(18);
+            personaDao.insertar(insert_persona);
 
-            personaDAO.insertar(insert_persona);
+            conexion.rollback(); // Obligar a que falle el insert anterior
 
-            //  personaDAO.insertar(nuevaPersona);
-            
+            insert_persona.setNombre("Axel");
+            insert_persona.setApellidos("SI DEBE INSERTAR");
+            insert_persona.setEmail("coorre@asdad");
+            insert_persona.setEdad(18);
+            personaDao.insertar(insert_persona);
+
             conexion.commit();
             System.out.println("Se ha hecho commit de la transaccion");
 

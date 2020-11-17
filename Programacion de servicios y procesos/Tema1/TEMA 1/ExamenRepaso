@@ -1,0 +1,70 @@
+fuerte acoplado y debil NO
+
+1.1.2 SI
+1.1.3 SI
+
+1.2 Servicio primer plano y segundo plano
+	En linux se llaman demon
+
+1.2.1 hilos y procesos
+figura 1.8
+
+1.3.1 Estado de proceso figura 1.10 ( parrafo de abajo )
+pag 13 IMPORTANTE
+1.3.2 NO
+1.3.3 RUNNABLE segndo parrafo
+
+1.4 , 1.4.1 , 1.4.2 de lo mas importante
+	lectores y escritores
+1.4.3 semaforo no
+	Monitores SI
+	sincronizar IMPORTANTE
+
+atomicidad bloque subrayado
+
+clases atomicAS no
+COLECCIiones concu no
+pag 35 no
+Comunicacion con mensajes SI
+
+implementacion usando java SI
+
+figura 1.15 NO
+
+2. Programacion miltihilo
+2.1
+2.1.1
+2.1.2 Relacion proceso e HILO ( esta mal en el pdf)
+2.1.3 Hilos java SI
+La clase thread
+
+Thread(Runnable target)
+Thread(Runnable target, String name)
+
+Metodos mas importantes SI
+2.2 Gestion de hilos SI
+2.2.1 SI
+2.2.2 Estados y cambios de un hilo SI
+2.2.3 Metodo thread.join()
+Ejemplo agencia viajes NO
+
+2.3.2 Objectos synchronized SI
+
+2.4.2 consumidor  SI
+
+que es un ThreadGroup
+
+Figura 2.8 SI
+ThreadGroup(String name) utilizo este para crear un grupo sin hijo ni nada
+
+ThreadGroup(ThreadGroup parent, String name) para crear grupo hijo de... 
+
+2.5.2 Clase ThreadGroup SI
+Prioridad de los grupos
+
+2.6 Leer 
+2.6.1 Planificacion de hilos leer 
+2.6.2 
+
+
+
