@@ -5,18 +5,20 @@
  */
 package com.ecodeup.demo;
 
+import com.ecodeup.controller.ControllerCliente;
+import com.ecodeup.model.Cliente;
+import com.ecodeup.vista.ViewCliente;
+
 /**
  *
  * @author kevin
  */
-import com.ecodeup.controller.ControllerCliente;
-import com.ecodeup.model.Cliente;
-
-import com.ecodeup.vista.ViewCliente;
-
 public class CrudJavaDemo {
 
     public static void main(String[] args) {
+
+        ViewCliente f = new ViewCliente();
+        f.setVisible(true);
 
 //        Cliente cliente = new Cliente("Keeeevin", "Rosales", "kevin", "contras", "micorreo");
 //
@@ -26,24 +28,15 @@ public class CrudJavaDemo {
 //        // guarda un cliente a través del controlador
 //        controller.registrar(cliente);
 //
-//        // ver clientes
-//        controller.verClientes();
-//
 //        // editar un cliente por medio del id
 //        cliente.setUser_id(1);
 //        cliente.setName("Santiago");
 //        controller.actualizar(cliente);
 //        
-//        // ver clientes
-//        controller.verClientes();
 //
 //        // eliminar un cliente por medio del id
 //        cliente.setUser_id(1);
 //        controller.eliminar(cliente);
-//HASTA AQUI ERA LA PRUEBA
-        ViewCliente f = new ViewCliente();
-        f.setVisible(true);
 
-        
     }
 }

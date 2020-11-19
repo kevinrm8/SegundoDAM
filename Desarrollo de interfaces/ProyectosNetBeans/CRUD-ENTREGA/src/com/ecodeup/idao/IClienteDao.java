@@ -4,19 +4,21 @@
  * and open the template in the editor.
  */
 package com.ecodeup.idao;
-import java.util.List;
- 
+
 import com.ecodeup.model.Cliente;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kevin
  */
 public interface IClienteDao {
-    	public boolean registrar(Cliente cliente);
-	public DefaultTableModel obtener_todos();
-        public Cliente obtener(int idCliente);
-	public boolean actualizar(Cliente cliente);
-	public boolean eliminar(Cliente cliente);
-        public boolean borrar_todos();
+
+    public boolean registrar(Cliente cliente);
+    public DefaultTableModel obtener_todos();
+    public boolean actualizar(Cliente cliente);
+    public boolean eliminar(Cliente cliente);
+    public boolean borrar_todos();
+    public Cliente obtener(int idCliente);
+
 }

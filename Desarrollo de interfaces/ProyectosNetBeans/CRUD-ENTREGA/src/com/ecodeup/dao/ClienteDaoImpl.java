@@ -5,11 +5,13 @@
  */
 package com.ecodeup.dao;
 
-import java.sql.*;
-
 import com.connection.Conexion;
 import com.ecodeup.idao.IClienteDao;
 import com.ecodeup.model.Cliente;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,31 +42,6 @@ public class ClienteDaoImpl implements IClienteDao {
             e.printStackTrace();
         }
         return registrar;
-    }
-
-    @Override
-    public Cliente obtener(int idCliente) {
-        Connection co = null;
-        Statement stm = null;
-        ResultSet rs = null;
-        String sql = "SELECT * FROM users WHERE user_id=" + idCliente;
-        Cliente cl = null;
-        try {
-            co = Conexion.conectar();
-            stm = co.createStatement();
-            rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                cl = new Cliente(idCliente, rs.getObject(2).toString(), rs.getObject(3).toString(), rs.getObject(4).toString(), rs.getObject(5).toString(), rs.getObject(6).toString());
-            }
-            //  System.out.println(cl.toString());
-            stm.close();
-            rs.close();
-            co.close();
-        } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método obtener");
-            e.printStackTrace();
-        }
-        return cl;
     }
 
     @Override
@@ -104,6 +81,30 @@ public class ClienteDaoImpl implements IClienteDao {
         return listaCliente;
     }
 
+        @Override
+    public Cliente obtener(int idCliente) {
+        Connection co = null;
+        Statement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM users WHERE user_id=" + idCliente;
+        Cliente cl = null;
+        try {
+            co = Conexion.conectar();
+            stm = co.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                cl = new Cliente(idCliente, rs.getObject(2).toString(), rs.getObject(3).toString(), rs.getObject(4).toString(), rs.getObject(5).toString(), rs.getObject(6).toString());
+            }
+            //  System.out.println(cl.toString());
+            stm.close();
+            rs.close();
+            co.close();
+        } catch (SQLException e) {
+            System.out.println("Error: Clase ClienteDaoImple, método obtener");
+            e.printStackTrace();
+        }
+        return cl;
+    }
     @Override
     public boolean actualizar(Cliente cliente) {
         Connection connect = null;
@@ -146,6 +147,7 @@ public class ClienteDaoImpl implements IClienteDao {
         return eliminar;
     }
 
+    @Override
     public boolean borrar_todos() {
         Connection connect = null;
         Statement stm = null;
@@ -163,5 +165,4 @@ public class ClienteDaoImpl implements IClienteDao {
 
         return borrar_todos;
     }
-
 }

@@ -56,7 +56,7 @@ public class OptionPaneEjemplos {
                 "Input dialog",
                 JOptionPane.QUESTION_MESSAGE); // the icon will be a questioner
 
-        System.out.println("The user has typed" + sel);
+        System.out.println("The user has typed " + sel);
 
         // With JCombobox
         Object selec = JOptionPane.showInputDialog(
