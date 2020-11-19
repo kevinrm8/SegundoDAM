@@ -8,10 +8,8 @@ package com.ecodeup.dao;
 import com.connection.Conexion;
 import com.ecodeup.idao.IClienteDao;
 import com.ecodeup.model.Cliente;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,8 +21,8 @@ public class ClienteDaoImpl implements IClienteDao {
     @Override
     public boolean registrar(Cliente cliente) {
         boolean registrar = false;
-
-        Statement stm = null;
+        PreparedStatement stm=null;
+       // Statement stm=null;
         Connection con = null;
 
         String sql = "INSERT INTO users values(NULL,'" + cliente.getName() + "','" + cliente.getLast_name()
@@ -32,8 +30,9 @@ public class ClienteDaoImpl implements IClienteDao {
 
         try {
             con = Conexion.conectar();
-            stm = con.createStatement();
-            stm.execute(sql);
+            stm = con.prepareStatement(sql);
+            stm.executeUpdate(sql);
+            
             registrar = true;
             stm.close();
             con.close();
@@ -56,7 +55,7 @@ public class ClienteDaoImpl implements IClienteDao {
 
         // Hace falta poner la cabecera aqui para que aparezcan los datos en la tabla
         String[] headers = new String[]{
-            "User_ID", "Name", "Last_Name", "User_Name", "Password", "Email"
+            "ID", "Name", "Last_Name", "User_Name", "Password", "Email"
         };
         listaCliente.setColumnIdentifiers(headers);
 
@@ -130,14 +129,14 @@ public class ClienteDaoImpl implements IClienteDao {
     @Override
     public boolean eliminar(Cliente cliente) {
         Connection connect = null;
-        Statement stm = null;
+        PreparedStatement stm = null;
 
         boolean eliminar = false;
 
         String sql = "DELETE FROM users WHERE user_id=" + cliente.getUser_id();
         try {
             connect = Conexion.conectar();
-            stm = connect.createStatement();
+            stm = connect.prepareStatement(sql);
             stm.execute(sql);
             eliminar = true;
         } catch (SQLException e) {

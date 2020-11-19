@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -41,7 +42,7 @@ public class ViewCliente extends JFrame {
     private ImageIcon imagen, imagen_red;
     private JMenu opciones, administrador, help;
     private JMenuItem nuevo, editar, borrar, url_ayuda, salir;
-    private JButton Imprimir = new JButton("Imprimir en PDF"), borrar_seleccion = new JButton("Borrar Cliente");
+    private JButton eres_admin = new JButton("¿Eres Administrador?"), borrar_seleccion = new JButton("Borrar Cliente");
 
     private ControllerCliente controller = new ControllerCliente();
 
@@ -63,7 +64,7 @@ public class ViewCliente extends JFrame {
         panelFondo.add(panelBotones, BorderLayout.SOUTH);
 
         //Botones de prueba añadidos a su panel
-        panelBotones.add(Imprimir);
+        panelBotones.add(eres_admin);
         panelBotones.add(borrar_seleccion);
 
         //Añadiendo los JMenu y JMenuItem
@@ -97,17 +98,18 @@ public class ViewCliente extends JFrame {
         panelTabla.add(jScrollPane);
 
         //Cargar los datos y mostrar la tabla
-        verTabla = controller.verClientes();
-        jTabla.setModel(verTabla);
+        VerTablaYOrdenarTabla();
+
+        borrar.setEnabled(false);
+        borrar_seleccion.setEnabled(false); // En un prinicipio no se podra borrar nada de la base de datos
 
         //Crear un cliente nuevo
         nuevo.addActionListener(l -> {
-            controlar_accion = 1;
             NuevoCliente v = new NuevoCliente(this, true);
 
             //Mostrar cliente creado en la tabla
-            verTabla = controller.verClientes();
-            jTabla.setModel(verTabla);
+            VerTablaYOrdenarTabla();
+
         });
         //Borrar todos los datos de la tabla
         borrar.addActionListener(l -> {
@@ -124,9 +126,9 @@ public class ViewCliente extends JFrame {
             if (JOptionPane.OK_OPTION == select) {
                 System.out.println("confirmed");
                 controller.borrar_todos();
+                
+                VerTablaYOrdenarTabla();
 
-                verTabla = controller.verClientes();
-                jTabla.setModel(verTabla);
             } else {
                 System.out.println("No borro nada");
             }
@@ -135,18 +137,21 @@ public class ViewCliente extends JFrame {
 
         //Editar la fila que hay seleccionada
         editar.addActionListener(l -> {
-            ListSelectionModel lineaSeleccionada = jTabla.getSelectionModel();
-            if (lineaSeleccionada.isSelectionEmpty()) {
+
+            int linea = -1;
+
+            linea = jTabla.getSelectedRow(); // Obtener linea
+
+            if (linea == -1) {
                 JOptionPane.showMessageDialog(null, "No hay nada seleccionado");
             } else {
-                int id = lineaSeleccionada.getMinSelectionIndex() + 1;
+                TableModel model = jTabla.getModel();
+                int id_cl = (Integer) model.getValueAt(linea, 0);
                 Cliente cAux = null;
-                cAux = controller.obtener(id);
+                cAux = controller.obtener(id_cl);
 
                 EditarCliente ec = new EditarCliente(this, true, cAux);
-
-                verTabla = controller.verClientes();
-                jTabla.setModel(verTabla);
+                VerTablaYOrdenarTabla();
 
             }
         });
@@ -171,48 +176,61 @@ public class ViewCliente extends JFrame {
         });
 
         //BOTONES
-        Imprimir.addActionListener(l -> {
-            String tabla;
-            verTabla = controller.verClientes();
-            tabla = verTabla.toString();
+        eres_admin.addActionListener(l -> {
+            int select = JOptionPane.showOptionDialog(
+                    null, // parent component
+                    "Eres un administrador?\n El Administrador podrá borrar datos del sistema.",
+                    "ADMINISTRADOR",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, // null for default icon or an icon.
+                    new Object[]{"Si", "No"}, "mensaje");
 
-            createPDF(tabla);
+            if (JOptionPane.OK_OPTION == select) {
+                System.out.println("confirmed");
+                borrar.setEnabled(true);
+                borrar_seleccion.setEnabled(true);
+            } else {
+                borrar.setEnabled(false);
+                borrar_seleccion.setEnabled(false);
+            }
 
         });
 
         borrar_seleccion.addActionListener(l -> {
-            ListSelectionModel lineaSeleccionada = jTabla.getSelectionModel();
-            if (lineaSeleccionada.isSelectionEmpty()) {
+            int linea = -1;
+
+            linea = jTabla.getSelectedRow(); // Obtener linea
+
+            if (linea == -1) {
                 JOptionPane.showMessageDialog(null, "No hay nada seleccionado");
             } else {
-                int id = lineaSeleccionada.getMinSelectionIndex() + 1;
+
+                TableModel model = jTabla.getModel();
+                int id_cl = (Integer) model.getValueAt(linea, 0);
+
                 Cliente cAux = null;
-                cAux = controller.obtener(id);
+                cAux = controller.obtener(id_cl);
                 controller.eliminar(cAux);
 
-                verTabla = controller.verClientes();
-                jTabla.setModel(verTabla);
+                VerTablaYOrdenarTabla();
 
             }
         });
+
     }
 
-    private void createPDF(String tabla) {
-        try {
+    public void VerTablaYOrdenarTabla() {
+        verTabla = controller.verClientes();
+        jTabla.setModel(verTabla);
 
-            //esta parte es fija, no se cambia
-            Document doc = new Document(PageSize.A4, 50, 50, 100, 72) {
-            };
-            PdfWriter.getInstance(doc, new FileOutputStream("FacturaPC.pdf"));
-            doc.open();
-            Paragraph p = new Paragraph(tabla);
-            p.setAlignment(Element.ALIGN_JUSTIFIED);
+        jTabla.getColumnModel().getColumn(0).setPreferredWidth(10);
+        jTabla.getColumnModel().getColumn(1).setPreferredWidth(20);
+        jTabla.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTabla.getColumnModel().getColumn(3).setPreferredWidth(20);
+        jTabla.getColumnModel().getColumn(4).setPreferredWidth(20);
+        jTabla.getColumnModel().getColumn(5).setPreferredWidth(50);
 
-            doc.add(p);
-            doc.close();
-        } catch (DocumentException | FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
 }

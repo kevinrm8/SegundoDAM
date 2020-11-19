@@ -18,7 +18,7 @@ public class Conexion {
         Connection con = null;
 
         String usuario = "root";
-        String password = "";
+        String password = "123456789";
 
         try {            
             con = DriverManager.getConnection("jdbc:mysql://localhost/sampledb?serverTimezone=UTC",usuario,password);

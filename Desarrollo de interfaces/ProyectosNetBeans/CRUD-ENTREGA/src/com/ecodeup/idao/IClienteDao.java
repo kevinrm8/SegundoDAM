@@ -20,5 +20,5 @@ public interface IClienteDao {
     public boolean eliminar(Cliente cliente);
     public boolean borrar_todos();
     public Cliente obtener(int idCliente);
-
+    
 }
