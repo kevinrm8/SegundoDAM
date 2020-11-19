@@ -101,7 +101,6 @@ class Productor implements Runnable {
                 Thread.sleep((int) (Math.random() * 1000));
             } catch (InterruptedException e) {;
             }
-
         }
     } //acaba run
 
