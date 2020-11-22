@@ -10,15 +10,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
 public class Conexion {
         public static Connection conectar() {
         Connection con = null;
-
+        //Datos de la base de dat os
         String usuario = "root";
-        String password = "123456789";
+        String password = "";
 
         try {            
             con = DriverManager.getConnection("jdbc:mysql://localhost/sampledb?serverTimezone=UTC",usuario,password);

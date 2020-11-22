@@ -13,18 +13,20 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
+
+// En esta clase trabajaremos con la base de datos para hacer insert, deleted, update...
 public class ClienteDaoImpl implements IClienteDao {
 
     @Override
     public boolean registrar(Cliente cliente) {
         boolean registrar = false;
         PreparedStatement stm=null;
-       // Statement stm=null;
         Connection con = null;
-
+        //Obtenemos los parametros con el cliente que le hemos pasado al metodo.
         String sql = "INSERT INTO users values(NULL,'" + cliente.getName() + "','" + cliente.getLast_name()
                 + "','" + cliente.getUser_name() + "','" + cliente.getPassword() + "','" + cliente.getEmail() + "')";
 
@@ -63,8 +65,8 @@ public class ClienteDaoImpl implements IClienteDao {
             co = Conexion.conectar();
             stm = co.createStatement();
             rs = stm.executeQuery(sql);
+            //Obtenemos los datos y los introducimos en la tabla
             while (rs.next()) {
-
                 Object[] data = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5), rs.getObject(6)};
                 listaCliente.addRow(data);
 
@@ -94,7 +96,6 @@ public class ClienteDaoImpl implements IClienteDao {
             while (rs.next()) {
                 cl = new Cliente(idCliente, rs.getObject(2).toString(), rs.getObject(3).toString(), rs.getObject(4).toString(), rs.getObject(5).toString(), rs.getObject(6).toString());
             }
-            //  System.out.println(cl.toString());
             stm.close();
             rs.close();
             co.close();
@@ -125,7 +126,7 @@ public class ClienteDaoImpl implements IClienteDao {
         }
         return actualizar;
     }
-
+    //Metodo para eliminar un cliente en concreto
     @Override
     public boolean eliminar(Cliente cliente) {
         Connection connect = null;
@@ -145,7 +146,7 @@ public class ClienteDaoImpl implements IClienteDao {
         }
         return eliminar;
     }
-
+    //Borramos todos los datos de la base de datos
     @Override
     public boolean borrar_todos() {
         Connection connect = null;

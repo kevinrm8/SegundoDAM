@@ -48,8 +48,6 @@ public class PersonaDAO {
                 personas.add(persona);
 
             }
-//        } catch (SQLException ex) {
-//            ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
             Conexion.close(stmt);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ecodeup.vista;
 
 import com.ecodeup.controller.ControllerCliente;
@@ -29,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- *
- * @author kevin
+ * @author kevin Fecha: 19/11/2020 Asignature: Interface Design
  */
+//Interfaz del programa
 public class ViewCliente extends JFrame {
 
     private JPanel panelFondo = new JPanel(new BorderLayout()), panelTabla = new JPanel(), panelBotones = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -42,7 +37,7 @@ public class ViewCliente extends JFrame {
     private ImageIcon imagen, imagen_red;
     private JMenu opciones, administrador, help;
     private JMenuItem nuevo, editar, borrar, url_ayuda, salir;
-    private JButton eres_admin = new JButton("¿Eres Administrador?"), borrar_seleccion = new JButton("Borrar Cliente");
+    private JButton eres_admin = new JButton("Activar opciones Administrador"), borrar_seleccion = new JButton("Borrar Cliente");
 
     private ControllerCliente controller = new ControllerCliente();
 
@@ -57,13 +52,14 @@ public class ViewCliente extends JFrame {
         setBounds(400, 200, 500, 600);
         setTitle("Ejercicio CRUD");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         //Añadir los paneles y menuBar
         add(panelFondo);
         setJMenuBar(menuBar);
         panelFondo.add(panelTabla, BorderLayout.CENTER);
         panelFondo.add(panelBotones, BorderLayout.SOUTH);
 
-        //Botones de prueba añadidos a su panel
+        //Añadir los botones al panel
         panelBotones.add(eres_admin);
         panelBotones.add(borrar_seleccion);
 
@@ -100,14 +96,15 @@ public class ViewCliente extends JFrame {
         //Cargar los datos y mostrar la tabla
         VerTablaYOrdenarTabla();
 
+        // En un primer momento los botones para borrar cualquier cosa estaran desactivados, hasta decirle al programa que eres un administrador
         borrar.setEnabled(false);
-        borrar_seleccion.setEnabled(false); // En un prinicipio no se podra borrar nada de la base de datos
+        borrar_seleccion.setEnabled(false);
 
         //Crear un cliente nuevo
         nuevo.addActionListener(l -> {
-            NuevoCliente v = new NuevoCliente(this, true);
+            NuevoCliente v = new NuevoCliente(this, true); // Muestro por pantalla un JDialog para crear un nuevo cliente
 
-            //Mostrar cliente creado en la tabla
+            //Mostrar cliente creado en la tabla. Vuelvo a cargar la tabla
             VerTablaYOrdenarTabla();
 
         });
@@ -123,10 +120,10 @@ public class ViewCliente extends JFrame {
                     null, // null for default icon or an icon.
                     new Object[]{"Si", "No"}, "mensaje");
 
-            if (JOptionPane.OK_OPTION == select) {
+            if (JOptionPane.OK_OPTION == select) { //Si seleccionamos que "SI" se borrara toda la t abla
                 System.out.println("confirmed");
                 controller.borrar_todos();
-                
+                //Cargamos la nueva tabla vacia
                 VerTablaYOrdenarTabla();
 
             } else {
@@ -139,18 +136,17 @@ public class ViewCliente extends JFrame {
         editar.addActionListener(l -> {
 
             int linea = -1;
-
             linea = jTabla.getSelectedRow(); // Obtener linea
 
             if (linea == -1) {
                 JOptionPane.showMessageDialog(null, "No hay nada seleccionado");
             } else {
                 TableModel model = jTabla.getModel();
-                int id_cl = (Integer) model.getValueAt(linea, 0);
+                int id_cl = (Integer) model.getValueAt(linea, 0); // OBtener el dato de la ID de la linea
                 Cliente cAux = null;
-                cAux = controller.obtener(id_cl);
+                cAux = controller.obtener(id_cl); // Con el ID selecciono el cliente
 
-                EditarCliente ec = new EditarCliente(this, true, cAux);
+                EditarCliente ec = new EditarCliente(this, true, cAux); // Llamo a un JDialog para editar el cliente
                 VerTablaYOrdenarTabla();
 
             }
@@ -177,29 +173,36 @@ public class ViewCliente extends JFrame {
 
         //BOTONES
         eres_admin.addActionListener(l -> {
-            int select = JOptionPane.showOptionDialog(
-                    null, // parent component
-                    "Eres un administrador?\n El Administrador podrá borrar datos del sistema.",
-                    "ADMINISTRADOR",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, // null for default icon or an icon.
-                    new Object[]{"Si", "No"}, "mensaje");
 
-            if (JOptionPane.OK_OPTION == select) {
-                System.out.println("confirmed");
-                borrar.setEnabled(true);
-                borrar_seleccion.setEnabled(true);
-            } else {
-                borrar.setEnabled(false);
-                borrar_seleccion.setEnabled(false);
+            JPasswordField pass = new JPasswordField(10);
+            String contra = "";
+            int action = JOptionPane.showConfirmDialog(null, pass, "Introduzca contraseña del administrador:", JOptionPane.OK_CANCEL_OPTION);
+
+            if (action == 0) // Si le damos OK
+            {
+                char[] password = pass.getPassword();
+                for (int i = 0; i < password.length; i++) {
+                    contra += Character.toString(password[i]);
+                    
+                }
+                contra = contra.toLowerCase(); // Lo ponemos todo en minuscula
+                if (contra.equals("admin")) { // Si la contraseña es admin
+                    JOptionPane.showMessageDialog(null, "La contraseña es correcta.\n Ahora tienes acceso a todas las opciones.");
+                    //Activamos botones para poder borrar datos y desactivamos el boton de introducir contraseña del admin
+                    borrar.setEnabled(true);
+                    borrar_seleccion.setEnabled(true);
+                    eres_admin.setEnabled(false);
+                } else {    // Si la contraseña es incorrecta, saldra un mensaje que nos lo indica
+                    JOptionPane.showMessageDialog(null, "La contraseña es incorrecta",
+                            "INCORRECTO",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             }
 
         });
 
         borrar_seleccion.addActionListener(l -> {
             int linea = -1;
-
             linea = jTabla.getSelectedRow(); // Obtener linea
 
             if (linea == -1) {
@@ -220,6 +223,7 @@ public class ViewCliente extends JFrame {
 
     }
 
+    //metodo para cargar los datos en la tabla y cargarlo en la interfaz
     public void VerTablaYOrdenarTabla() {
         verTabla = controller.verClientes();
         jTabla.setModel(verTabla);

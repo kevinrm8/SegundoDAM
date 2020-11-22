@@ -71,9 +71,27 @@ public class EditarCliente extends JDialog {
 
         aceptar.addActionListener(l -> {
 
-            Cliente actualizar_cliente = new Cliente(cliente.getUser_id(),tfName.getText(), tfLast_name.getText(), tfUser_name.getText(), tfPassword.getText(), tfEmail.getText());
-            controller.actualizar(actualizar_cliente);
-            setVisible(false);
+            if (tfName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Debes rellenar el campo: 'Name'",
+                        "Faltan datos",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (tfLast_name.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Debes rellenar el campo: 'Last_Name'",
+                            "Faltan datos",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if (tfEmail.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Debes introducir un Email para ponernos en contacto contigo",
+                                "Faltan datos",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        Cliente actualizar_cliente = new Cliente(cliente.getUser_id(), tfName.getText(), tfLast_name.getText(), tfUser_name.getText(), tfPassword.getText(), tfEmail.getText());
+                        controller.actualizar(actualizar_cliente);
+                        setVisible(false);
+                    }
+                }
+            }
         });
 
         salir.addActionListener(s -> {

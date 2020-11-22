@@ -41,6 +41,11 @@ public class TestManejoPersonas {
 
             conexion.commit();
             System.out.println("Se ha hecho commit de la transaccion");
+            
+            
+            personaDao.seleccionar().forEach(action->{
+                System.out.println(action.toString());
+            });
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

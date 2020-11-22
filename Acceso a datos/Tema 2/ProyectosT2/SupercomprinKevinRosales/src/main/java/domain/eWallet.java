@@ -19,21 +19,21 @@ public class eWallet {
     private int edad;
     private String fecha_nacimiento;
     private int telefono;
-    private float saldo;
-
+    private float saldo=0;
+    private int puntos=0;
+    
     public eWallet() {
     }
 
-    public eWallet(String nombre, String DNI, int edad, String fecha_nacimiento, int telefono, float saldo) {
+    public eWallet(String nombre, String DNI, int edad, String fecha_nacimiento, int telefono) {
         this.nombre = nombre;
         this.DNI = DNI;
         this.edad = edad;
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
-        this.saldo = saldo;
     }
 
-    public eWallet(int ideWallet, String nombre, String DNI, int edad, String fecha_nacimiento, int telefono, float saldo) {
+    public eWallet(int ideWallet, String nombre, String DNI, int edad, String fecha_nacimiento, int telefono, float saldo, int puntos) {
         this.ideWallet = ideWallet;
         this.nombre = nombre;
         this.DNI = DNI;
@@ -41,6 +41,7 @@ public class eWallet {
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
         this.saldo = saldo;
+        this.puntos = puntos;
     }
 
     public int getIdeWallet() {
@@ -96,13 +97,23 @@ public class eWallet {
     }
 
     public void setSaldo(float saldo) {
-        this.saldo = saldo;
+        this.saldo += saldo;
+    }
+
+        public int getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 
     @Override
     public String toString() {
-        return "eWallet{" + "ideWallet=" + ideWallet + ", nombre=" + nombre + ", DNI=" + DNI + ", edad=" + edad + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", saldo=" + saldo + '}';
+        return "eWallet{" + "ideWallet=" + ideWallet + ", nombre=" + nombre + ", DNI=" + DNI + ", edad=" + edad + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", saldo=" + saldo + ", puntos=" + puntos + '}';
     }
+   
+
     
 
 }

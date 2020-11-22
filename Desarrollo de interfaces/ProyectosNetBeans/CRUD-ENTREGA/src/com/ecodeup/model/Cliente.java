@@ -6,9 +6,12 @@
 package com.ecodeup.model;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
+
+//Clase cliente con todos los datos, constructores, gettes and setters y toString
 public class Cliente {
         private int user_id;
     private String name;

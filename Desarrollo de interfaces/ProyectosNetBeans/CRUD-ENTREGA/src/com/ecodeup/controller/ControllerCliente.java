@@ -11,9 +11,13 @@ import com.ecodeup.model.Cliente;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
+
+//Clase para controlar lo que vamos a ejecutar, paso intermedio entre la Interfaz y el DAO
+//En cada metodo llamaremos a dao para ejecutar cada instruccion
 public class ControllerCliente {
 
     public ControllerCliente() {

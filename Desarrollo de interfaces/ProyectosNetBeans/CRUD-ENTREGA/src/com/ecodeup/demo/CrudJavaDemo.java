@@ -10,8 +10,9 @@ import com.ecodeup.model.Cliente;
 import com.ecodeup.vista.ViewCliente;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
 public class CrudJavaDemo {
 
@@ -20,23 +21,6 @@ public class CrudJavaDemo {
         ViewCliente f = new ViewCliente();
         f.setVisible(true);
 
-//        Cliente cliente = new Cliente("Keeeevin", "Rosales", "kevin", "contras", "micorreo");
-//
-//        // controlador
-//        ControllerCliente controller = new ControllerCliente();
-//
-//        // guarda un cliente a través del controlador
-//        controller.registrar(cliente);
-//
-//        // editar un cliente por medio del id
-//        cliente.setUser_id(1);
-//        cliente.setName("Santiago");
-//        controller.actualizar(cliente);
-//        
-//
-//        // eliminar un cliente por medio del id
-//        cliente.setUser_id(1);
-//        controller.eliminar(cliente);
 
     }
 }

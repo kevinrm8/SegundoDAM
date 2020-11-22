@@ -9,8 +9,9 @@ import com.ecodeup.model.Cliente;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author kevin
+ * Fecha: 19/11/2020
+ * Asignature: Interface Design
  */
 public interface IClienteDao {
 

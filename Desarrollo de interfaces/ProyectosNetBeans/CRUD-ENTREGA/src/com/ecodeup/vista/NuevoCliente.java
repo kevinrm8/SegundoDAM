@@ -62,15 +62,33 @@ public class NuevoCliente extends JDialog {
 
         aceptar.addActionListener(l -> {
 
-            Cliente cliente = new Cliente(tfName.getText(), tfLast_name.getText(), tfUser_name.getText(), tfPassword.getText(), tfEmail.getText());
-            controller.registrar(cliente);
+            if (tfName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Debes rellenar el campo: 'Name'",
+                        "Faltan datos",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (tfLast_name.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Debes rellenar el campo: 'Last_Name'",
+                            "Faltan datos",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if(tfEmail.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Debes introducir un Email para ponernos en contacto contigo",
+                            "Faltan datos",
+                            JOptionPane.WARNING_MESSAGE);
+                    }else{
+                    Cliente cliente = new Cliente(tfName.getText(), tfLast_name.getText(), tfUser_name.getText(), tfPassword.getText(), tfEmail.getText());
+                    controller.registrar(cliente);
+                    setVisible(false);}
+                }
+            }
+
+        });
+
+        salir.addActionListener(s -> {
             setVisible(false);
         });
-        
-        salir.addActionListener(s->{
-            setVisible(false);
-        });
-        
+
         setVisible(true);
     }
 }
