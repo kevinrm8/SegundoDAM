@@ -15,24 +15,21 @@ public class Producto {
     private String nombreProducto;
     private float precioProducto;
     private int puntosProducto;
-    private int stockProducto;
 
     public Producto() {
     }
 
-    public Producto(String nombreProducto, float precioProducto, int puntosProducto, int stockProducto) {
+    public Producto(String nombreProducto, float precioProducto, int puntosProducto) {
         this.nombreProducto = nombreProducto;
         this.precioProducto = precioProducto;
         this.puntosProducto = puntosProducto;
-        this.stockProducto = stockProducto;
     }
 
-    public Producto(int idProducto, String nombreProducto, float precioProducto, int puntosProducto, int stockProducto) {
+    public Producto(int idProducto, String nombreProducto, float precioProducto, int puntosProducto) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precioProducto = precioProducto;
         this.puntosProducto = puntosProducto;
-        this.stockProducto = stockProducto;
     }
 
     public int getIdProducto() {
@@ -67,17 +64,11 @@ public class Producto {
         this.puntosProducto = puntosProducto;
     }
 
-    public int getStockProducto() {
-        return stockProducto;
-    }
 
-    public void setStockProducto(int stockProducto) {
-        this.stockProducto = stockProducto;
-    }
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", precioProducto=" + precioProducto + ", puntosProducto=" + puntosProducto + ", stockProducto=" + stockProducto + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", precioProducto=" + precioProducto + ", puntosProducto=" + puntosProducto+ '}';
     }
 
 }

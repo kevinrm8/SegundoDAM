@@ -8,9 +8,12 @@ package test;
 import datos.Conexion;
 import datos.eWalletDAO;
 import domain.eWallet;
+import java.util.Date;
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -22,22 +25,29 @@ public class PrincipalSupercomprin {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ParseException {
         int opc = -1;
         int cantidad;
 
+//        //INTRODUCIR FECHA QUE QUIERAS
+//        String fechaString ="";// DD-MM-AAAA
+//        SimpleDateFormat nombreElquesea = new SimpleDateFormat("dd-MM-YYYY");
+//        Date fechaAxel = nombreElquesea.parse("31-07-1992");
+//        //Para pasarlo a mili y pasarlo a sql
+//        long miliseg = fechaAxel.getTime();
+//        java.sql.Date fechnacimieeentoo = new java.sql.Date(miliseg);
         Connection conexion = null;
 
         try {
             conexion = Conexion.getConnection();
 
-            if (conexion.getAutoCommit()) {
-                conexion.setAutoCommit(false);
-            }
+//            if (conexion.getAutoCommit()) {
+//                conexion.setAutoCommit(false);
+//            }
             eWalletDAO eWDAO = new eWalletDAO(conexion);
             eWallet ewallet = new eWallet();
             do { // CREAR EL MENU
-                System.out.println("0-Salir\n1-Crear nuevo eWallet\n2-Mostrar todos los eWallet\n3-Ingresar Saldo");
+                System.out.println("0-Salir\n1-Crear nuevo eWallet\n2-Mostrar todos los eWallet\n3-Ingresar Saldo\n4-Comprar Producto");
                 opc = scanner.nextInt();
                 scanner.nextLine();
                 switch (opc) {
@@ -62,8 +72,10 @@ public class PrincipalSupercomprin {
                             eWDAO.actualizar(ewallet);
                         }
                         break;
+                    case 4:
+                        break;
                 }
-                conexion.commit();
+                //      conexion.commit();
                 System.out.println("Se ha hecho commit de la transaccion");
 
             } while (opc != 0 || opc < 0 || opc > 5);
@@ -110,37 +122,53 @@ public class PrincipalSupercomprin {
     }
 
     private static void insertarNuevoeWallet(Connection conexion) throws SQLException {
-        eWalletDAO eWDAO = new eWalletDAO(conexion);
-        eWallet insert_eWallet = new eWallet();
-        String nombre;
-        int dia, mes, anio;
-        String dni;
-        int telefono;
-        System.out.println("Escribe tu nombre:");
-        nombre = scanner.nextLine();
-        System.out.println("Tu DNI:");
-        dni = scanner.nextLine();
-        System.out.println("Fecha de nacimiento(dd mm aaaa):");
-        dia = scanner.nextInt();
-        mes = scanner.nextInt();
-        anio = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Telefono de contacto:");
-        telefono = scanner.nextInt();
-        scanner.nextLine();
+        try {
+            if (conexion.getAutoCommit()) {
+                conexion.setAutoCommit(false);
+            }
+            eWalletDAO eWDAO = new eWalletDAO(conexion);
+            eWallet insert_eWallet = new eWallet();
+            String nombre;
+            int dia, mes, anio;
+            String dni;
+            int telefono;
+            System.out.println("Escribe tu nombre:");
+            nombre = scanner.nextLine();
+            System.out.println("Tu DNI:");
+            dni = scanner.nextLine();
+            System.out.println("Fecha de nacimiento(dd mm aaaa):");
+            dia = scanner.nextInt();
+            mes = scanner.nextInt();
+            anio = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Telefono de contacto:");
+            telefono = scanner.nextInt();
+            scanner.nextLine();
 
-        Date fechanac = new Date(anio, mes - 1, dia);
+            Date fechanac = new Date(anio, mes - 1, dia);
 
-        insert_eWallet.setNombre(nombre);
-        insert_eWallet.setDNI(dni);
-        insert_eWallet.setEdad(calcularAnios(fechanac));
-        insert_eWallet.setFecha_nacimiento(Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(anio));
-        insert_eWallet.setTelefono(telefono);
-        eWDAO.insertar(insert_eWallet);
+            insert_eWallet.setNombre(nombre);
+            insert_eWallet.setDNI(dni);
+            insert_eWallet.setEdad(calcularAnios(fechanac));
+            insert_eWallet.setFecha_nacimiento(Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(anio));
+            insert_eWallet.setTelefono(telefono);
 
-        if (calcularAnios(fechanac) < 18) { // Si tiene menos de 18 hacemos rollback para no introducir el nuevo eWallet
-            System.out.println("Para poder crear un nuevo eWallet, debes de tener +18");
-            conexion.rollback();
+            eWDAO.insertar(insert_eWallet);
+
+            conexion.commit();
+
+            if (calcularAnios(fechanac) < 18) { // Si tiene menos de 18 hacemos rollback para no introducir el nuevo eWallet
+                System.out.println("Para poder crear un nuevo eWallet, debes de tener +18");
+                conexion.rollback();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+            System.out.println("Entramos al rollback EXXXXXXXXXXXXXXXXXxx");
+            try {
+                conexion.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace(System.out);
+            }
         }
     }
 
