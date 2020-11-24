@@ -51,7 +51,7 @@ public class ProductoDAO {
                 String nombreProducto = rs.getString("Nombre");
                 int PrecioProducto = rs.getInt("Precio");
                 int PuntosProducto = rs.getInt("Puntos");
-                int StockProducto = rs.getInt("Stock");
+                producto = new Producto(idProducto,nombreProducto, PrecioProducto, PuntosProducto);
                 listaProducto.add(producto);
                 
             }
@@ -96,6 +96,7 @@ public class ProductoDAO {
         
     }
     
+    
     public int insertar(Producto producto) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -107,7 +108,7 @@ public class ProductoDAO {
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, producto.getNombreProducto());
             stmt.setFloat(2, producto.getPrecioProducto());
-            stmt.setInt(3, producto.getPuntosProducto());
+            stmt.setFloat(3, producto.getPuntosProducto());
             registros = stmt.executeUpdate();
         } finally {
             try {
@@ -133,7 +134,7 @@ public class ProductoDAO {
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, producto.getNombreProducto());
             stmt.setFloat(2, producto.getPrecioProducto());
-            stmt.setInt(3, producto.getPuntosProducto());
+            stmt.setFloat(3, producto.getPuntosProducto());
             stmt.executeUpdate();
         } finally {
             try {

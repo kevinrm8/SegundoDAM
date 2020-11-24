@@ -17,15 +17,15 @@ public class eWallet {
     private String nombre;
     private String DNI;
     private int edad;
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
     private int telefono;
-    private float saldo=0;
-    private int puntos=0;
-    
+    private float saldo = 0;
+    private float puntos = 0;
+
     public eWallet() {
     }
 
-    public eWallet(String nombre, String DNI, int edad, String fecha_nacimiento, int telefono) {
+    public eWallet(String nombre, String DNI, int edad, Date fecha_nacimiento, int telefono) {
         this.nombre = nombre;
         this.DNI = DNI;
         this.edad = edad;
@@ -33,7 +33,7 @@ public class eWallet {
         this.telefono = telefono;
     }
 
-    public eWallet(int ideWallet, String nombre, String DNI, int edad, String fecha_nacimiento, int telefono, float saldo, int puntos) {
+    public eWallet(int ideWallet, String nombre, String DNI, int edad, Date fecha_nacimiento, int telefono, float saldo, float puntos) {
         this.ideWallet = ideWallet;
         this.nombre = nombre;
         this.DNI = DNI;
@@ -76,11 +76,11 @@ public class eWallet {
         this.edad = edad;
     }
 
-    public String getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
@@ -97,23 +97,38 @@ public class eWallet {
     }
 
     public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
+    public void sumarSaldo(float saldo) {
         this.saldo += saldo;
     }
 
-        public int getPuntos() {
+    public void restarSaldo(float saldo) {
+        this.saldo -= saldo;
+    }
+
+    public float getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
+    public void setPuntos(float puntos) {
         this.puntos = puntos;
+    }
+       public void sumarPuntos(float puntos) {
+        this.puntos += puntos;
+    }
+
+    public void restarPuntos(float puntos) {
+        this.puntos -= puntos;
     }
 
     @Override
     public String toString() {
         return "eWallet{" + "ideWallet=" + ideWallet + ", nombre=" + nombre + ", DNI=" + DNI + ", edad=" + edad + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", saldo=" + saldo + ", puntos=" + puntos + '}';
     }
-   
-
-    
+    public String verSaldoyPuntos() {
+        return "La eWallet de "+nombre+" tiene:\nSaldo: "+saldo+" Puntos: "+puntos;
+    }
 
 }

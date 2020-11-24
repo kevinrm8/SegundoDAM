@@ -11,16 +11,21 @@ package domain;
  */
 public class Devolver {
     private int idDevolver;
-    private eWallet ewallet;
-    private Producto producto;
+    private eWallet ewalletDevuelve;
+    private Producto productoDevuelve;
 
     public Devolver() {
     }
 
+    public Devolver(eWallet ewallet, Producto producto) {
+        this.ewalletDevuelve = ewallet;
+        this.productoDevuelve = producto;
+    }
+
     public Devolver(int idDevolver, eWallet ewallet, Producto producto) {
         this.idDevolver = idDevolver;
-        this.ewallet = ewallet;
-        this.producto = producto;
+        this.ewalletDevuelve = ewallet;
+        this.productoDevuelve = producto;
     }
 
     public int getIdDevolver() {
@@ -32,24 +37,24 @@ public class Devolver {
     }
 
     public eWallet getEwallet() {
-        return ewallet;
+        return ewalletDevuelve;
     }
 
     public void setEwallet(eWallet ewallet) {
-        this.ewallet = ewallet;
+        this.ewalletDevuelve = ewallet;
     }
 
     public Producto getProducto() {
-        return producto;
+        return productoDevuelve;
     }
 
     public void setProducto(Producto producto) {
-        this.producto = producto;
+        this.productoDevuelve = producto;
     }
 
     @Override
     public String toString() {
-        return "Devolver{" + "idDevolver=" + idDevolver + ", ewallet=" + ewallet + ", producto=" + producto + '}';
+        return "Devolver{" + "idDevolver=" + idDevolver + ", ewallet=" + ewalletDevuelve + ", producto=" + productoDevuelve + '}';
     }
     
 }

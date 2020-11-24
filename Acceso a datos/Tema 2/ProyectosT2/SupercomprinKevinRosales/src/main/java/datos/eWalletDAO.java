@@ -8,7 +8,7 @@ package datos;
 import static datos.Conexion.close;
 import java.util.*;
 import java.sql.*;
-
+import java.sql.Date;
 import domain.eWallet;
 
 /**
@@ -19,7 +19,7 @@ public class eWalletDAO {
 
     private static final String SQL_SELECT = "SELECT id_eWallet,Nombre,DNI,Edad,FechaNacimiento,Telefono,Saldo,Puntos FROM ewallet";
     private static final String SQL_INSERT = "INSERT INTO ewallet(Nombre,DNI,Edad,FechaNacimiento,Telefono,Saldo,Puntos) VALUES(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE ewallet SET Nombre=?, DNI=?,Edad=?,FechaNacimiento=?,Telefono=?,Saldo=?,Puntos=? WHERE id_eWallet=?";
+    private static final String SQL_UPDATE = "UPDATE ewallet SET Nombre=?,DNI=?,Edad=?,FechaNacimiento=?,Telefono=?,Saldo=?,Puntos=? WHERE id_eWallet=?";
     private static final String SQL_DELETE = "DELETE from ewallet where id_eWallet=?";
     private Connection conexionTransaccional;
 
@@ -48,7 +48,7 @@ public class eWalletDAO {
                 String nombre = rs.getString("Nombre");
                 String dni = rs.getString("DNI");
                 int edad = rs.getInt("Edad");
-                String fechaNacim = rs.getString("FechaNacimiento");
+                Date fechaNacim = rs.getDate("FechaNacimiento");
                 int telefono = rs.getInt("Telefono");
                 int saldo = rs.getInt("Saldo");
                 int puntos = rs.getInt("Puntos");
@@ -68,6 +68,8 @@ public class eWalletDAO {
 
     }
 
+        
+        
     public eWallet obtener(String dni) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -83,11 +85,41 @@ public class eWalletDAO {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
                 int edad = rs.getInt(4);
-                String fnac = rs.getString(5);
+                Date fnac = rs.getDate(5);
                 int tlf = rs.getInt(6);
                 int saldo = rs.getInt(7);
                 int puntos = rs.getInt(8);
                 ewallet = new eWallet(id, name, dni, edad, fnac, tlf, saldo, puntos);
+            }
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            if (this.conexionTransaccional == null) {
+                Conexion.close(conn);
+            }
+        }
+        return ewallet;
+    }
+    
+        public eWallet obtenerByID(int idewallet) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        eWallet ewallet = null;
+        try {
+            conn = this.conexionTransaccional != null
+                    ? this.conexionTransaccional : Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT + " WHERE id_eWallet='" + idewallet + "'");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                String dni = rs.getString(3);
+                int edad = rs.getInt(4);
+                Date fnac = rs.getDate(5);
+                int tlf = rs.getInt(6);
+                int saldo = rs.getInt(7);
+                int puntos = rs.getInt(8);
+                ewallet = new eWallet(idewallet, name, dni, edad, fnac, tlf, saldo, puntos);
             }
 
         } finally {
@@ -114,10 +146,10 @@ public class eWalletDAO {
             stmt.setString(1, ewallet.getNombre());
             stmt.setString(2, ewallet.getDNI());
             stmt.setInt(3, ewallet.getEdad());
-            stmt.setString(4, ewallet.getFecha_nacimiento());
+            stmt.setDate(4, ewallet.getFecha_nacimiento());
             stmt.setInt(5, ewallet.getTelefono());
             stmt.setFloat(6, ewallet.getSaldo());
-            stmt.setInt(7, ewallet.getPuntos());
+            stmt.setFloat(7, ewallet.getPuntos());
 
             registros = stmt.executeUpdate();
         } finally {
@@ -147,10 +179,10 @@ public class eWalletDAO {
             stmt.setString(1, ewallet.getNombre());
             stmt.setString(2, ewallet.getDNI());
             stmt.setInt(3, ewallet.getEdad());
-            stmt.setString(4, ewallet.getFecha_nacimiento());
+            stmt.setDate(4, ewallet.getFecha_nacimiento());
             stmt.setInt(5, ewallet.getTelefono());
             stmt.setFloat(6, ewallet.getSaldo());
-            stmt.setInt(7, ewallet.getPuntos());
+            stmt.setFloat(7, ewallet.getPuntos());
             stmt.setInt(8, ewallet.getIdeWallet());
             stmt.executeUpdate();
         } finally {

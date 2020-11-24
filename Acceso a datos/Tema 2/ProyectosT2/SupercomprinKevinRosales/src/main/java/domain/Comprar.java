@@ -18,6 +18,11 @@ public class Comprar {
     public Comprar() {
     }
 
+    public Comprar(eWallet eWalletQueCompra, Producto productoQueCompra) {
+        this.eWalletQueCompra = eWalletQueCompra;
+        this.productoQueCompra = productoQueCompra;
+    }
+
     public Comprar(int idCompra, eWallet eWalletQueCompra, Producto productoQueCompra) {
         this.idCompra = idCompra;
         this.eWalletQueCompra = eWalletQueCompra;
