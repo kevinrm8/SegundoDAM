@@ -36,20 +36,9 @@ public class PrincipalSupercomprin {
     public static void main(String[] args) throws SQLException, ParseException, InterruptedException {
         int opc = -1;
         float cantidad;
-
-        //INTRODUCIR FECHA QUE QUIERAS
-//        SimpleDateFormat nombreElquesea = new SimpleDateFormat("dd-MM-YYYY");
-//        Date fechaAxel = nombreElquesea.parse("31-07-1992");
-//        //Para pasarlo a mili y pasarlo a sql
-//        long miliseg = fechaAxel.getTime();
-//        java.sql.Date fechnacimieeentoo = new java.sql.Date(miliseg);
-//        Connection conexion = null;
+        
         try {
-//            conexion = Conexion.getConnection();
-////
-//            if (conexion.getAutoCommit()) {
-//                conexion.setAutoCommit(false);
-//            }
+
             eWallet ewallet;
             Comprar compra;
             do { // CREAR EL MENU
@@ -94,6 +83,7 @@ public class PrincipalSupercomprin {
     }
 
     public static int calcularAnios(java.util.Date fechaNacimiento) {
+        
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate fechanac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); // Transformo la fecha Date en LocalDate para poder hacer los calculos 
         LocalDate fechaHOY = LocalDate.now(); // GUARDO LA FECHA HOY
@@ -115,13 +105,15 @@ public class PrincipalSupercomprin {
             eWallet insert_eWallet = new eWallet();
 
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd"); // DAR FORMATO A LA FECHA
-            java.util.Date fechaJAVA = formatoFecha.parse("2000-07-31"); // INTRODUCIR FECHA DE NACIMIENTO
+            java.util.Date fechaJAVA = formatoFecha.parse("1992-07-31"); // INTRODUCIR FECHA DE NACIMIENTO
             Date fechaSQL = new Date(fechaJAVA.getTime()); // PASAR fecha de util.date a sql.date
             //DATOS DEL EWALLET
-            String nombre = "NombreTest";
-            String dni = "DNITest1";
-            int telefono = 1;
-
+            String nombre = "Pablo";
+            String dni = "dnikevin";
+            int telefono = 121;
+            
+            System.out.println(fechaSQL.toString());
+            
             insert_eWallet.setNombre(nombre);
             insert_eWallet.setDNI(dni);
             insert_eWallet.setEdad(calcularAnios(fechaJAVA)); // Con el metodo CalcularAnios calculamos la edad que tiene
