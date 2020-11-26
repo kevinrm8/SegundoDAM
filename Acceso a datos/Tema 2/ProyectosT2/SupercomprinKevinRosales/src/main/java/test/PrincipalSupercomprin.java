@@ -7,9 +7,11 @@ package test;
 
 import datos.ComprarDAO;
 import datos.Conexion;
+import datos.DevolverDAO;
 import datos.ProductoDAO;
 import datos.eWalletDAO;
 import domain.Comprar;
+import domain.Devolver;
 import domain.Producto;
 import domain.eWallet;
 
@@ -17,6 +19,7 @@ import domain.eWallet;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -33,10 +36,8 @@ public class PrincipalSupercomprin {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws SQLException, ParseException, InterruptedException {
-        int opc = -1;
-        float cantidad;
-        
+    public static void main(String[] args) throws ParseException, InterruptedException {
+        int opc = -1; // Inicializo opc para el menu
         try {
 
             eWallet ewallet;
@@ -83,12 +84,10 @@ public class PrincipalSupercomprin {
     }
 
     public static int calcularAnios(java.util.Date fechaNacimiento) {
-        
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         LocalDate fechanac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); // Transformo la fecha Date en LocalDate para poder hacer los calculos 
         LocalDate fechaHOY = LocalDate.now(); // GUARDO LA FECHA HOY
         Period periodo = Period.between(fechanac, fechaHOY); // CALCULO LA DIFERENCIA DE TIEMPO ENTRE FECHA NACIMIENTO Y HOY
-        System.out.println("Edad en años: " + periodo.getYears() + "meses: " + periodo.getMonths() + "DIAS: " + periodo.getDays());
 
         return periodo.getYears(); // DEVUELVO LOS AÑOS QUE TIENE ACTUALMENTE
     }
@@ -104,39 +103,53 @@ public class PrincipalSupercomprin {
             eWalletDAO eWDAO = new eWalletDAO(conexion);
             eWallet insert_eWallet = new eWallet();
 
+            System.out.println("Nombre: ");
+            String nombre = scanner.nextLine();
+            System.out.println("DNI:");
+            String dni = scanner.nextLine();
+
+            System.out.println("Numero de telefono:");
+            int telefono = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Fecha de nacimiento(yyyy-MM-dd):");
+            String fechanacimiento = scanner.nextLine();
+
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd"); // DAR FORMATO A LA FECHA
-            java.util.Date fechaJAVA = formatoFecha.parse("1992-07-31"); // INTRODUCIR FECHA DE NACIMIENTO
+            java.util.Date fechaJAVA = formatoFecha.parse(fechanacimiento); // INTRODUCIR FECHA DE NACIMIENTO
             Date fechaSQL = new Date(fechaJAVA.getTime()); // PASAR fecha de util.date a sql.date
-            //DATOS DEL EWALLET
-            String nombre = "Pablo";
-            String dni = "dnikevin";
-            int telefono = 121;
-            
-            System.out.println(fechaSQL.toString());
-            
+
             insert_eWallet.setNombre(nombre);
             insert_eWallet.setDNI(dni);
             insert_eWallet.setEdad(calcularAnios(fechaJAVA)); // Con el metodo CalcularAnios calculamos la edad que tiene
             insert_eWallet.setFecha_nacimiento(fechaSQL);
             insert_eWallet.setTelefono(telefono);
-
-            eWDAO.insertar(insert_eWallet);
-
+            try {
+                eWDAO.insertar(insert_eWallet);
+            } catch (SQLException ex) {
+                System.out.println("El DNI de la eWallet ya existe");
+                // ex.printStackTrace(System.out); Para ver el error
+            }
             if (insert_eWallet.getEdad() < 18) { // Si tiene menos de 18 hacemos rollback para no introducir el nuevo eWallet
                 System.out.println("Para poder crear un nuevo eWallet, debes de tener +18");
-                conexion.rollback();
-            } else {
+                try {
+                    conexion.rollback();
+                } catch (SQLException ex1) {
+                    System.out.println("Entramos al rollback // InsertarNuevoWallet");
+                    // ex.printStackTrace(System.out); Para ver el error
+                }
+            } else { // Si es mayor de edad hace el commit 
                 conexion.commit();
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-            System.out.println("Entramos al rollback // InsertarNuevoWallet");
-            try {
-                conexion.rollback();
-            } catch (SQLException ex1) {
-                ex1.printStackTrace(System.out);
-            }
         }
+    }
+
+    private static void MostrareWallets() throws SQLException {
+        eWalletDAO eWDAO = new eWalletDAO();
+        eWDAO.seleccionar_todos().forEach(action -> {
+            System.out.println(action.toString());
+        });
     }
 
     private static eWallet ComprobareWallet() throws SQLException {
@@ -160,7 +173,7 @@ public class PrincipalSupercomprin {
             return ewallet;
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-            System.out.println("Exception from IngresarSaldo");
+            System.out.println("Exception from Comprobar eWallet");
             try {
                 conexion.rollback();
             } catch (SQLException ex1) {
@@ -212,13 +225,19 @@ public class PrincipalSupercomprin {
                     System.out.println("****************************************");
                     ewalletDAO.actualizar(ewallet); // Actualizar la eWallet con el nuevo saldo y puntos    
                     comprar = new Comprar(ewallet, producto); // Creo la compra?
-
-                    comprarDAO.insertar(comprar);   // Inserto la compra a la base de datos
-
+                    try {
+                        comprarDAO.insertar(comprar);   // Inserto la compra a la base de datos
+                    } catch (SQLException ex) {
+                        System.out.println("Error al insertar compra");
+                    }
                     //Compruebo si hay suficiente saldo para comprar, si no lo hay, hacemos rollback para no comprar el producto
                     if (saldoAntesDeComprar < producto.getPrecioProducto()) {
                         System.out.println("No hay suficiente dinero para comprar " + producto.getNombreProducto());
-                        conexion.rollback();
+                        try {
+                            conexion.rollback();
+                        } catch (SQLException ex1) {
+                            ex1.printStackTrace(System.out);
+                        }
                     } else {
                         System.out.println("Compra realizada correctamente.");
                         conexion.commit();
@@ -241,7 +260,11 @@ public class PrincipalSupercomprin {
 
                     if (producto.getPrecioProducto() < 5 || puntosAntesComprar <= producto.getPrecioProducto()) { // Condicion de que el precio sea mayor que 5 y se pueda comprar integramente con puntos
                         System.out.println("No tiene suficientes puntos para comprar el producto " + producto.getNombreProducto());
-                        conexion.rollback();
+                        try {
+                            conexion.rollback();
+                        } catch (SQLException ex1) {
+                            ex1.printStackTrace(System.out);
+                        }
                     } else {
                         System.out.println("Compra realizada correctamente.");
                         conexion.commit();
@@ -252,20 +275,8 @@ public class PrincipalSupercomprin {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
             System.out.println("Exception from IngresarSaldo");
-            try {
-                conexion.rollback();
-            } catch (SQLException ex1) {
-                ex1.printStackTrace(System.out);
-            }
         }
 
-    }
-
-    private static void MostrareWallets() throws SQLException {
-        eWalletDAO eWDAO = new eWalletDAO();
-        eWDAO.seleccionar_todos().forEach(action -> {
-            System.out.println(action.toString());
-        });
     }
 
     private static void IngresarSaldo(eWallet ewallet) throws SQLException {
@@ -289,19 +300,18 @@ public class PrincipalSupercomprin {
 
             if (fechaHOY.getDayOfMonth() > 5) { // Si el dia del mes es mayor que 5, no podemos hacer un ingreso.
                 System.out.println("Solo se permiten hacer ingresos durante los 5 primeros dias del mes");
-                conexion.rollback();
+                try {
+                    conexion.rollback();
+                } catch (SQLException ex1) {
+                    ex1.printStackTrace(System.out);
+                }
             } else {
                 conexion.commit();
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
             System.out.println("Exception from IngresarSaldo");
-            try {
-                conexion.rollback();
-            } catch (SQLException ex1) {
-                ex1.printStackTrace(System.out);
-            }
+
         }
 
     }
@@ -351,6 +361,9 @@ public class PrincipalSupercomprin {
             eWallet ewallet;
             Producto producto;
 
+            DevolverDAO devolverdao = new DevolverDAO(conexion);
+            Devolver devolver;
+
             ewallet = compra.geteWalletQueCompra();
             producto = compra.getProductoQueCompra();
 
@@ -367,10 +380,23 @@ public class PrincipalSupercomprin {
 
             eWDAO.actualizar(ewallet);
 
+            devolver = new Devolver(ewallet, producto, compra);
+            //Para capturar error al intentar devolver una compra que ya esta devuelta
+            try {
+                devolverdao.insertar(devolver);
+            } catch (SQLException ex) {
+                System.out.println("La compra ya ha sido devuelta.");
+                ex.printStackTrace(System.out);
+            }
             //Comprobacion de los puntos para poder hacer la devolucion
             if (ewallet.getPuntos() < 5) {
                 System.out.println("***ATENCION***\nLa eWallet se queda con menos de 5 Puntos, no es posible hacer la devolucion.");
-                conexion.rollback();
+                try {
+                    conexion.rollback();
+                } catch (SQLException ex1) {
+                    System.out.println("Entramos en el Rollback // DevolverProducto");
+                    // ex1.printStackTrace(System.out); Para ver el error
+                }
             } else {
                 conexion.commit();
             }
@@ -378,11 +404,7 @@ public class PrincipalSupercomprin {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
             System.out.println("Exception from IngresarSaldo");
-            try {
-                conexion.rollback();
-            } catch (SQLException ex1) {
-                ex1.printStackTrace(System.out);
-            }
+
         }
 
     }

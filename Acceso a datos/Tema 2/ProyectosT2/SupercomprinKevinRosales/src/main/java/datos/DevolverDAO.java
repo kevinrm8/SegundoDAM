@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class DevolverDAO {
 
-    private static final String SQL_SELECT = "SELECT idDevolucion,eWallet_id_eWallet,Producto_idProducto FROM devolucion";
-    private static final String SQL_INSERT = "INSERT INTO devolucion(eWallet_id_eWallet,Producto_idProducto) VALUES(?,?)";
+    private static final String SQL_SELECT = "SELECT idDevolucion,eWallet_id_eWallet,Producto_idProducto,Compra_idCompra FROM devolucion";
+    private static final String SQL_INSERT = "INSERT INTO devolucion(eWallet_id_eWallet,Producto_idProducto,Compra_idCompra) VALUES(?,?,?)";
     private static final String SQL_DELETE = "DELETE from devolucion where idDevolucion=?";
 
     private Connection conexionTransaccional;
@@ -46,6 +46,8 @@ public class DevolverDAO {
         eWallet eWalletQueCompra;
         ProductoDAO productoDAO = new ProductoDAO();
         Producto productoQueCompra;
+        ComprarDAO compraDAO = new ComprarDAO();
+        Comprar ticketCompra;
         try {
             conn = this.conexionTransaccional != null
                     ? this.conexionTransaccional : Conexion.getConnection();
@@ -56,10 +58,11 @@ public class DevolverDAO {
                 int idDevolver = rs.getInt("idDevolucion");
                 int ideWallet = rs.getInt("eWallet_id_eWallet");
                 int idProducto = rs.getInt("Producto_idProducto");
-
+                int idCompra = rs.getInt("Compra_idCompra");
                 eWalletQueCompra = ewalletDAO.obtenerByID(ideWallet); // A partir del ID me guardo los datos de la ewallet que devuelve
                 productoQueCompra = productoDAO.obtener(idProducto);// A partir del ID me guardo los datos del Producto que devuelve
-                devolver = new Devolver(idDevolver, eWalletQueCompra, productoQueCompra);
+                ticketCompra = compraDAO.obtener(idCompra);
+                devolver = new Devolver(idDevolver, eWalletQueCompra, productoQueCompra,ticketCompra);
                 listaDevoluciones.add(devolver);
             }
         } finally {
@@ -84,6 +87,7 @@ public class DevolverDAO {
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setInt(1, devolver.getEwallet().getIdeWallet());
             stmt.setInt(2, devolver.getProducto().getIdProducto());
+            stmt.setInt(3, devolver.getCompra().getIdCompra());
             registros = stmt.executeUpdate();
 
         } finally {
@@ -97,6 +101,7 @@ public class DevolverDAO {
         }
         return registros;
     }
+    
         public int eliminar(Devolver devolver) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

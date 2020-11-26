@@ -31,7 +31,7 @@ CREATE TABLE `compra` (
   KEY `fk_Compra_Producto1_idx` (`Producto_idProducto`),
   CONSTRAINT `fk_Compra_Producto1` FOREIGN KEY (`Producto_idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Compra_e-Wallet` FOREIGN KEY (`eWallet_id_eWallet`) REFERENCES `ewallet` (`id_eWallet`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` VALUES (1,2,1),(2,2,3),(3,2,5),(5,2,1),(8,2,1),(9,2,1),(11,2,1),(13,2,1);
+INSERT INTO `compra` VALUES (1,1,1),(2,1,5),(3,2,6),(4,3,13),(5,1,11),(6,1,9),(7,1,5);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,12 +55,15 @@ CREATE TABLE `devolucion` (
   `idDevolucion` int(11) NOT NULL AUTO_INCREMENT,
   `eWallet_id_eWallet` int(11) NOT NULL,
   `Producto_idProducto` int(11) NOT NULL,
+  `Compra_idCompra` int(11) NOT NULL,
   PRIMARY KEY (`idDevolucion`),
+  UNIQUE KEY `Compra_idCompra_UNIQUE` (`Compra_idCompra`),
   KEY `fk_Devolucion_e-Wallet1_idx` (`eWallet_id_eWallet`),
   KEY `fk_Devolucion_Producto1_idx` (`Producto_idProducto`),
+  CONSTRAINT `fk_Devolucion_Compra1` FOREIGN KEY (`Compra_idCompra`) REFERENCES `compra` (`idCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Devolucion_Producto1` FOREIGN KEY (`Producto_idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Devolucion_e-Wallet1` FOREIGN KEY (`eWallet_id_eWallet`) REFERENCES `ewallet` (`id_eWallet`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,6 +72,7 @@ CREATE TABLE `devolucion` (
 
 LOCK TABLES `devolucion` WRITE;
 /*!40000 ALTER TABLE `devolucion` DISABLE KEYS */;
+INSERT INTO `devolucion` VALUES (1,1,1,1),(2,1,9,6);
 /*!40000 ALTER TABLE `devolucion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +94,7 @@ CREATE TABLE `ewallet` (
   `Puntos` float NOT NULL,
   PRIMARY KEY (`id_eWallet`),
   UNIQUE KEY `DNI_UNIQUE` (`DNI`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +103,7 @@ CREATE TABLE `ewallet` (
 
 LOCK TABLES `ewallet` WRITE;
 /*!40000 ALTER TABLE `ewallet` DISABLE KEYS */;
-INSERT INTO `ewallet` VALUES (2,'NombreTest','DNITest','20','2000-07-30',1,71,20),(4,'NombreTest','DNITest1','20','2000-07-30',1,1000,0);
+INSERT INTO `ewallet` VALUES (1,'Kevin','DNIKevin','28','1992-07-31',666,1165,18),(2,'Pablo','DNIPablo','32','1988-05-14',111,85,1),(3,'Axel','DNIAxel','31','1989-09-28',444,129,7);
 /*!40000 ALTER TABLE `ewallet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-24 23:29:10
+-- Dump completed on 2020-11-26 12:10:01

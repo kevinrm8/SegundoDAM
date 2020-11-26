@@ -68,8 +68,6 @@ public class eWalletDAO {
 
     }
 
-        
-        
     public eWallet obtener(String dni) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -100,8 +98,8 @@ public class eWalletDAO {
         }
         return ewallet;
     }
-    
-        public eWallet obtenerByID(int idewallet) throws SQLException {
+
+    public eWallet obtenerByID(int idewallet) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -158,7 +156,11 @@ public class eWalletDAO {
                 if (this.conexionTransaccional == null) {
                     Conexion.close(conn);
                 }
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                System.out.println("Error de duplicidad");
             } catch (SQLException ex) {
+                System.out.println("Error en Insertar");
+
             }
         }
 
