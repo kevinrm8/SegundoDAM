@@ -101,7 +101,6 @@ public class PrincipalSupercomprin {
                 conexion.setAutoCommit(false);
             }
             eWalletDAO eWDAO = new eWalletDAO(conexion);
-            eWallet insert_eWallet = new eWallet();
 
             System.out.println("Nombre: ");
             String nombre = scanner.nextLine();
@@ -118,30 +117,20 @@ public class PrincipalSupercomprin {
             java.util.Date fechaJAVA = formatoFecha.parse(fechanacimiento); // INTRODUCIR FECHA DE NACIMIENTO
             Date fechaSQL = new Date(fechaJAVA.getTime()); // PASAR fecha de util.date a sql.date
 
-            insert_eWallet.setNombre(nombre);
-            insert_eWallet.setDNI(dni);
-            insert_eWallet.setEdad(calcularAnios(fechaJAVA)); // Con el metodo CalcularAnios calculamos la edad que tiene
-            insert_eWallet.setFecha_nacimiento(fechaSQL);
-            insert_eWallet.setTelefono(telefono);
-            try {
-                eWDAO.insertar(insert_eWallet);
-            } catch (SQLException ex) {
-                System.out.println("El DNI de la eWallet ya existe");
-                // ex.printStackTrace(System.out); Para ver el error
-            }
-            if (insert_eWallet.getEdad() < 18) { // Si tiene menos de 18 hacemos rollback para no introducir el nuevo eWallet
+
+            eWallet ewallet = new eWallet(nombre, dni, calcularAnios(fechaJAVA), fechaSQL, telefono);
+            System.out.println(calcularAnios(fechaJAVA) + " OTRO: " + ewallet.getEdad());
+            if (calcularAnios(fechaJAVA) < 18) { // Si tiene menos de 18 hacemos rollback para no introducir el nuevo eWallet
                 System.out.println("Para poder crear un nuevo eWallet, debes de tener +18");
-                try {
-                    conexion.rollback();
-                } catch (SQLException ex1) {
-                    System.out.println("Entramos al rollback // InsertarNuevoWallet");
-                    // ex.printStackTrace(System.out); Para ver el error
-                }
-            } else { // Si es mayor de edad hace el commit 
+                return;
+            } else {
+                eWDAO.insertar(ewallet);
                 conexion.commit();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+
+        } catch (SQLException ex1) {
+            conexion.rollback();
+            ex1.printStackTrace(System.out);
         }
     }
 
