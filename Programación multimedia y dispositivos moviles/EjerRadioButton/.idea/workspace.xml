@@ -7,7 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b2f3a4a-d2ce-45ba-81dd-a027304dcce5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Desarrollo de interfaces/ProyectosNetBeans/Source Packages/Series.dat" beforeDir="false" afterPath="$PROJECT_DIR$/../../Desarrollo de interfaces/ProyectosNetBeans/Source Packages/Series.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/SumaAplicacion/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/SumaAplicacion/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SumaAplicacion/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SumaAplicacion/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SumaRestaRadioButton/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SumaRestaRadioButton/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,9 +121,13 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="308" y="311" width="424" height="484" key="FileChooserDialogImpl" timestamp="1602661103842">
+    <state x="67" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606984888698">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="308" y="311" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1602661103842" />
+    <state x="67" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1606984888698" />
+    <state x="308" y="311" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606984920052">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="308" y="311" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1606984920052" />
   </component>
 </project>

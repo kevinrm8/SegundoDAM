@@ -7,7 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bfdc746-960d-49cb-bb86-db0b7aaa8a9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Desarrollo de interfaces/ProyectosNetBeans/Source Packages/Series.dat" beforeDir="false" afterPath="$PROJECT_DIR$/../../Desarrollo de interfaces/ProyectosNetBeans/Source Packages/Series.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/GridLayoutExample/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PROYECTOSAndroid/SumaAplicacion/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PROYECTOSAndroid/SumaAplicacion/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SumaAplicacion/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SumaAplicacion/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +44,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EjerRadioButton" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">

@@ -16,4 +16,5 @@
     <string name="_0">0</string>
     <string name="igual">=</string>
     <string name="suma">+</string>
+    <string name="mostrarTexto">mostrarTexto</string>
 </resources>
