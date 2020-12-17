@@ -1343,3 +1343,8 @@ Stacktrace:] con causa raíz
 		at java.base/java.lang.Thread.run(Thread.java:834)
 15-Dec-2020 10:54:24.189 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
 15-Dec-2020 10:54:24.189 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+15-Dec-2020 11:10:58.039 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+15-Dec-2020 11:10:58.039 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+15-Dec-2020 11:10:58.041 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@c87787d')
+15-Dec-2020 11:56:48.659 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+15-Dec-2020 11:56:48.660 INFORMACIÓN [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
